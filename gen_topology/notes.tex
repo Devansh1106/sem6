@@ -1,0 +1,134 @@
+\documentclass[12pt,reqno]{amsart}
+
+\usepackage{graphicx}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\theoremstyle{plain}
+
+\newtheorem*{thm*}{Theorem}
+%% this allows for theorems which are not automatically numbered
+
+\newtheorem{defn}{Definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{eg}{Example}
+\newtheorem{rem}{Remark}
+\usepackage{lineno}
+
+%% The above lines are for formatting.  In general, you will not want to change these.
+
+
+\title{General Topology}
+\author{Devansh Tripathi}
+
+\begin{document}
+
+\begin{abstract}
+    We shall learn some general topology.
+\end{abstract}
+\maketitle
+\begin{defn}
+    Induced metric: A metric which is derived from a norm. A normed space is a special metric space whose metric is derived from a norm.
+\end{defn}
+\begin{eg}
+    $\mathscr{C}[a,b]$: Set of all bounded continuous real function on a closed interval form the normed space with norm defined as $$ \|f\| = \int_a^b |f(x)|~dx \hspace{0.35cm}\text{or,} \hspace{0.5cm} \|f\| = \sup{|f(x)|}$$ and the induced metric is $$ \|f - g \| = \int_a^b |f(x) - g(x)| ~ dx \hspace{0.35cm} \text{or,} \hspace{0.5cm} \|f - g\| = \sup{|f(x) - g(x)|} $$
+\end{eg}
+\begin{defn}
+    Distance of a point $x$ from a set $A$: $$ d(x, A) = \inf\{d(x,a) \mid \forall a \in A \} $$
+    Diameter of the set: $$ d(A) = \sup \{d(a_1, a_2) \mid \forall a_1, a_2 \in A\} $$
+\end{defn}
+\begin{defn}
+    Bounded mapping: A mapping $f$ of a non-empty set into a metric space is said to be bounded if its range is bounded i.e. $\exists M \in \mathbb{R} \text{ such that } |f(x)| \leq M $ 
+\end{defn}
+\begin{eg}
+    A pseudo metric which is not a metric
+    $$ f,g \in \mathbb{R}^2 \text{ and } d(f,g):= \text{difference between their $x$ coordinates} $$    
+\end{eg}
+\begin{defn}
+    Interval: A set $A \subset \mathbb{R}$ is an interval if $$ \forall x, y \in A \text{ and } \forall t \in \mathbb{R} \colon x \leq t \leq y \implies t \in A $$ 
+\end{defn}
+\begin{thm}
+    Union of intervals with non empty intersection is an interval.    
+\end{thm}
+\begin{proof}
+    Let $\{I_i\}$ be the set of interval and $a \in \cap_i I_i$.\\
+    Proof Idea: Take any two points in the union and show that they contains every point in between them (take general point and show that it will belong to the union).\\
+    Let $x,y \in \cup_i I_i$ and let $t \in \mathbb{R} \colon x \leq t \leq y $ then there are following possiblities:\\
+    $t < a$, \\$ t = a$ or, \\ $t > a$.\\ All are trivial to show that they lie in union.
+\end{proof}
+\section{Topological Spaces}
+\begin{defn}
+    Topology: A topology on a set $X$ is a collection $\mathcal T$ of subsets of $X$ having the following properties:
+\begin{itemize}
+    \item $\phi$ and $X$ are in $\mathcal T$.
+    \item The union of the elements of any subcollection of $\mathcal T$ is in $\mathcal T$.
+    \item The intersection of the elements of any finite subcollection of $\mathcal T$ is in $\mathcal T$.
+\end{itemize}
+\end{defn}
+A set $X$ with topology $\mathcal T$ is called an topological space ($X,\mathcal T$).
+\begin{defn}
+    Open set of $X$: For the topological space $(X, \mathcal T)$, a subset $U$ of $X$ is an open set of $X$ if $U$ belongs to the collection $\mathcal T$.
+\end{defn}
+\begin{eg}
+    Discrete Topology: If $X$ is any set then collection of all subsets of $X$ is a topology on $X$, called {\bf discrete topology.}
+\end{eg}
+\begin{eg}
+    Indiscrete or trivial topology: The topology consisting of only $\phi$ and the whole set $X$ is called {\bf trivial topology.}
+\end{eg}
+\begin{eg}
+    Finite complement topology: Let $X$ be a set and $\mathcal{T}$ be the collection of all subset $U$ of $X$ such that $X - U$ is either finite or $X$. Then $\mathcal{T}$ is called {\bf finite complement topology}. (This topology is consists of subset of $X$ whose complement is either finite or $X$.)
+\end{eg}
+\begin{proof}
+    Let $\{U_{i}\}$ be the indexed family of subsets of $X$ belongs to $\mathcal{T}$. $\phi$ and $X$ are obviously there. Assume each $\bigcup\limits_i U_i$ is non-empty (trivial for empty case): 
+    $$X - \bigcup\limits_i U_i = \bigcap\limits_i(X - U_i)$$
+    Since each $U_i$ is in $\mathcal{T}$, $X - U_i$ is finite. and $\bigcap\liminf_i X - U_i$ is contained in every $X - U_i$ hence it is finite.\\ \\
+    To show $\bigcap\limits_i^n X - U_i$ is in $\mathcal{T}$, 
+    $$ X - \bigcap\limits_i^n U_i = \bigcup\limits_i^n (X - U_i) $$
+    Rhs is finite union of finite sets hence it is finite.
+\end{proof}
+\begin{eg}
+    Let $X$ be set and $\mathcal{T}_c$ be the collection of all subsets $U$ of $X$ such that $U^c$ is either countable or all of $X$. Then $\mathcal{T}_c$ is a topology of $X$. 
+\end{eg}
+\begin{proof}
+    $\phi$ and $X$ are trivial inside $\mathcal{T}_c$. Let $U_i$ be the indexed family of subsets of $X$. Assume $\bigcup\limits_i U_i$ is non-empty (trivial for empty case). To show that $\bigcup\limits_i U_i$ is in $\mathcal{T}_c$
+    $$ X - \bigcup\limits_i U_i = \bigcap\limits_i (X - U_i)$$
+    Since, $X - U_i$ is countable for each $i$ and $\bigcap\limits_i (X - U_i)$ is in $U_i$ for each $i$. Hence, $\bigcap\limits_i (X - U_i)$ is countable. \\
+    To show that $\bigcap\limits_i U_i$ is in $\mathcal{T}_c$, use the same argument as last example and the fact that finite union of countable sets is countable.
+\end{proof}
+\begin{defn}
+    Finer or strictly finer topology: For a set $X$, if $\mathcal{T}$ and $\mathcal{T}'$ are two topologies on $X$ such that $\mathcal{T} \subset \mathcal{T}'$ then we say $\mathcal{T}'$ is {\bf finer} than $\mathcal{T}$ and if $\mathcal{T}'$ properly contains $\mathcal{T}$ then we say it's {\bf strictly finer}. \\ \\
+    Then $\mathcal{T}$ is called {\bf coarser} than $\mathcal{T}'$ or, {\bf strictly coarser} if it is contained in $\mathcal{T}'$ properly.
+\end{defn}
+\begin{defn}
+    Comparable: We say $\mathcal{T}$ is comparable with $\mathcal{T}'$ if either $\mathcal{T} \subset \mathcal{T}'$ or $\mathcal{T}' \subset \mathcal{T}$.
+\end{defn}
+\section{Basis for a Topology}
+\begin{defn}
+    If $X$ is a set, a {\bf basis} for a topology on $X$ is a collection $\mathcal{B}$ of subsets of $X$ (called basis elements) such that
+    \begin{itemize}
+        \item For each $x \in X$, there is atleast one basis element $B \in \mathcal{B}$ such that $x \in B$.
+        \item If $x$ belongs to the intersection of two basis elements $B_1$ and $B_2$, then there is $B_3 \in \mathcal{B}$ such that $x \in B_3 \subset B_1 \cap B_2$. 
+    \end{itemize}
+\end{defn}
+We define a topology $\mathcal{T}$ generated by $\mathcal{B}$ as: A subset $U$ of $X$ is said to be open in $X$ (e.g. an element of topology on $X$) if for all $x \in U$, there is a basis element $B \in \mathcal{B}$ such that $x \in B \subset U$.
+
+\begin{rem}
+    Each element of the basis is an element of the topology. 
+\end{rem}
+\begin{eg}
+    If $X$ is any set then the collection of all one element subsets of $X$ is a basis for the discrete topology on $X$.(Power set of $X$). 
+\end{eg}
+\begin{proof}
+    Trivial to see.
+\end{proof}
+\begin{lem}
+    The collection $\mathcal{T}$ generated by the basis $\mathcal{B}$ is a topology.
+\end{lem}
+\begin{proof}
+    Let the collection $\mathcal{T} = \{U_i\}_{i \in I}$. Condition for the set $U_i$ to belong to the collection is that for each $x \in U_i$ there exists an element $B \in \mathcal{B}$ and $x \in B \subset U_i$.
+    \paragraph{\bf Membership of $\phi$ and $X$:}
+    For $\phi$, it is vacuously true (true due to non-availability of elements in the set). For $X$, for each $x \in X$, there exists $B \in \mathcal{B}$ (by definition of basis) such that $x \in B$ and $B \subset X$.
+\end{proof}
+\end{document}
