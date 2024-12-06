@@ -1,7 +1,7 @@
 \documentclass[12pt,reqno]{amsart}
 
 \usepackage{graphicx}
-
+\usepackage{enumerate}
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{mathrsfs}
@@ -10,9 +10,11 @@
 \newtheorem*{thm*}{Theorem}
 %% this allows for theorems which are not automatically numbered
 
-\newtheorem{defn}{Definition}
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}{Lemma}
+\newtheorem{cor}{Corollary}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
 \newtheorem{eg}{Example}
 \newtheorem{rem}{Remark}
 \usepackage{lineno}
@@ -29,5 +31,254 @@
     We shall learn some theory related to ordinary differential equations.
 \end{abstract}
 \maketitle
+\section{Preliminaries from Real Analysis}
+\begin{defn}[Pointwise convergence]
+    Let $I$ be any interval in $\mathbb{R}$. Let $f_n:I \rightarrow \mathbb{R}, n = 1,2,\dots,$ be a sequence of functions. We say that the $\{f_n\}$ converges pointwise to a function $f:I\subset \mathbb{R} \rightarrow \mathbb{R}$ if the sequence $\{f_n(x)\}$ converges to $f(x)$ for every $x \in I$.
+\end{defn}
+\begin{rem}
+    Uniform convergence preserves continuity, interchange of limit and integral.
+\end{rem}
+\begin{thm}
+    Uniform limit of the sequence of continuous function is continuous.
+\end{thm}
+\begin{rem}
+    Converse of the above theorem is not always true.
+\end{rem}
+\begin{thm}[Cauchy Criterion]
+    Let $\{f_n\}_{n\geq 1}$ a sequence of function defined on a metric space $(X,d_X)$ with values in a complete metric space $(Y,d_Y)$. Then there exists a function $f:X \to Y$ such that 
+    $$ f_n \to f \text{ uniformly on } X$$
+    if and only if the following condition is satisfied: For every $\varepsilon > 0$, there exists an integer $n_0$ such that
+    $$ m,n \geq n_0 \text{ implies } d_Y(f_m(x),f_n(x)) < \varepsilon $$
+    for every $x \in X$.
+\end{thm}
+\begin{proof}
+    $(\implies)$ Assume that the sequence $\{f_n\}$ converges uniformly on $X$. For given $\varepsilon > 0$ there exists $n_0 \in \mathbb{N}$ such that $\forall m > n_0$ and for all $x \in X$
+    $$ d_Y(f_m,f) \leq \frac{\varepsilon}{2} $$ and there exists $n_1 \in \mathbb{N}$ such that $\forall n \geq n_1$ 
+    $$ d_Y(f_n,f) \leq \frac{\varepsilon}{2} $$
+    Take $ n_3 = \min\{n_0,n_1\}$ then for all $m,n \geq n_3$
+    \begin{align*}
+        d_Y(f_m,f_n) &\leq d_Y(f_m, f) + d_Y(f,f_n)\\
+        &\leq \frac{\varepsilon}{2} + \frac{\varepsilon}{2}\\
+        &\leq \varepsilon \text{ for all } x \in X      
+    \end{align*}
+$(\impliedby)$ Conversely, suppose that $m,n \geq n_0$ implies that $d_Y(f_m,f_n) < \varepsilon$ for all $x \in X$. Then for each $x \in X$, the sequence $\{f_n(x)\}_{n \geq 1}$ is cauchy in a complete space $Y$ and therefore converges in $Y$. Let $f(x) = \lim\limits_{n \to \infty}f_n(x)$ for each $x \in X$.  For $k > 0$ then
+$$ d_Y(f_n(x), f_{n+k}(x)) < \frac{\varepsilon}{2}$$
+for every $ k = 0,1,\dots$ and every $x \in X$. 
+$$ d_Y(f_n(x),f(x)) = \lim\limits_{n \to \infty}d_Y(f_n(x), f_{n+k}(x)) \leq \frac{\varepsilon}{2} < \varepsilon$$
+$$ d_Y(f_n(x),f(x)) < \varepsilon$$
+for every $x \in X$ and $f_n \to f$ uniformly over $X$.
+\end{proof}
+\begin{thm}[Weierstrass M-test]
+    Let $f_1, f_2, \dots$ be a sequence of real valued functions defined on a set $X$ and suppose that
+    $$ |f_n(x)| \leq M_n$$
+    for all $x \in X$ and all $n = 1,2,\dots$ If $\sum\limits_{n=1}^{\infty} M_n$ converges, then $\sum\limits_{n=1}^{\infty} f_n$ converges uniformly.
+\end{thm}
+\begin{proof}
+    If $\sum\limits_{n=1}^{\infty} M_n$ converges, then for given $\varepsilon > 0$,
+    $$ \left|\sum\limits_{k=n}^{m} f_k(x)\right| \leq \sum\limits_{k=n}^{m} \left|f_k(x)\right| \leq \sum\limits_{k=n}^{m} M_k < \varepsilon$$ 
+    for every $x \in X$ and provided that $m,n$ are sufficiently large. Now, by cauchy criterion, uniform convergence follows.
+\end{proof}
+\begin{rem}
+    For Uniform boundedness and equicontinuity, the underline space is assumed to be compact hence equicontinuity here is same as uniform equicontinuity.
+\end{rem}
+\begin{rem}
+    Some authors define pointwise and uniform equicontinuity separately and then on compact space they prove the equivalence.
+\end{rem}
+\begin{defn}[Uniform Boundedness]
+    A sequence of functions $\{f_n\}$ defined on $I$(compact) is said to be uniformly bounded if there exists a constant $M > 0$ such that $\left|f_k(x)\right| \leq M$, for all $ x \in I$, for all $ k \in \mathbb{N}$.
+\end{defn}
+\begin{defn}[Equicontinuity]
+    A sequence of functions $\{f_k\}$ defined on $I$(compact) is said to be equicontinuity on $I$, if for every $\varepsilon > 0$, there exists $\delta > 0$ such that $\left|f_k(x) - f_k(y)\right| < \varepsilon $ whenever $x,y \in I$ and $|x-y| < \delta$, and for all $k$.
+\end{defn}
+\begin{rem}
+    If the family of functions is equicontinuous, then each member in the family is uniformly continuous. Converse may not be true always. For e.g. $f_k(x) = x^k, 0 \leq x \leq 1, k =1,2,\dots$ is not an equicontinuous family; however each member is uniformly continuous function (continuous on closed and bounded interval).
+\end{rem}
+\begin{eg}
+    Each finite set of functions defined on compact set is equicontinuous. If the set is singleton then its trivial. For two element set, take minimum of the $\delta$'s and then for finite set take minimum of all $\delta$'s .
+\end{eg}
+\begin{thm}
+    For the sequence of functions $f_n$ and $f$ defined on compact set $E$ and $f_n \to f$ uniformly then the family of functions $A = \{f_n \colon n \in \mathbb{N}\}$ is equicontinuous.
+\end{thm}
+\begin{proof}
+    Since $f_n \to f$ uniformly, by cauchy criterion of uniform continuity $\exists n_0 \in \mathbb{N}$ such that $\forall m,n \geq n_0$
+    $$ |f_m(x) - f_n(x)| < \frac{\varepsilon}{3}$$
+    Look at the family of functions $B = \{f_1, f_2, \dots, f_{n_0}\}$, since it is finite, it is equicontinuous. For $k \in \mathbb{N}$
+    $$ |f_k(x) - f_k(y)| < \frac{\varepsilon}{3}$$ whenever $|x - y| < \delta$ for all $f_k \in B$ and for all $x,y \in E$.
+    Now, for each $f_n \in A$ 
+    \begin{align*}
+        |f_n(x) - f_n(y)| &\leq |f_n(x) - f_{n_0}(x)| + |f_{n_0}(x) - f_{n_0}(y)| + |f_{n_0}(y) - f_n(y)| \\
+        & < \frac{\varepsilon}{3} + \frac{\varepsilon}{3} +\frac{\varepsilon}{3}\\
+        & < \varepsilon \text{ whenever } |x - y| < \delta   
+    \end{align*}
+\end{proof}
+\begin{thm}[Arzela-Ascoli]
+    Let $\{f_k\}$ be a sequence of functions in $C[a,b]$ which is uniformly bounded and equicontinuous. Then, there exists a subsequence $\{f_{k_n}\}$ of $\{f_k\}$ such that $\{f_{k_n}\}$ converges uniformly to a function $f \in  C[a,b]$.
+\end{thm}
+\begin{proof}
+  TODO
+\end{proof}
+\begin{defn}[Lipschitz continuity]
+    A function $f \colon D \subset \mathbb{R} \to \mathbb{R}$, is said to be {\it locally} Lipschitz in $D$ if for any $x_0 \in D$, there exists a neighbourhood $N_{x_0}$ of $x_0$ and an $\alpha = \alpha(x_0) > 0$ such that 
+    $$ |f(x) - f(y)| \leq \alpha(x_0)|x - y|\text{, for all } x,y 
+    \in N_{x_0}$$
+    The function $f \colon D \subset 
+    \mathbb{R} \to \mathbb{R}$ is said to be {\it globally} Lipschitz in $D$ if there exists $\alpha > 0$ such that 
+    $$|f(x) - f(y)| \leq \alpha|x - y|\text{, for all } x,y 
+    \in D$$       
+\end{defn}
+\begin{rem}
+    The smallest $\alpha$ satisfying the above equation is called {\it Lipschitz constant} of $f$. It should be finite.
+\end{rem}
+\begin{rem}
+    If $f$ is globally Lipschitz, then it is uniformly continuous.(Take $\delta = \frac{\varepsilon}{M}$).
+\end{rem}
+\begin{thm}[Sufficient condition for Lipschitz continuity]
+    Suppose $D$ is an open interval in $\mathbb{R}$ and $f \colon D \to \mathbb{R}$ is differentiable on $D$ and $\alpha = \sup\limits_{x \in D}|f'(x)| < \infty$. Then, $f$ is Lipschitz with a Lipschitz constant less than or equal to $\alpha$.
+\end{thm}
+\begin{proof}
+    Use mean value theorem: 
+    $$ \frac{|f(b) - f(a)|}{|b - a|} = f'(c) \leq \alpha$$
+    And Lipschitz constant is by definition the smallest $\alpha$ satisfying above inequality. Therefore, Lipschitz constant $\leq \alpha$.
+\end{proof}
+\begin{eg}
+    Example of Lipschitz continuous functions: polynomials, polynomials of sine and cosine, exponential functions etc.
+\end{eg}
+\begin{defn}[Lipschitz continuity for vector valued map]
+    A function ${\bf f}(t,{\bf y}) \colon (a,b) \times D \to \mathbb{R}^n$ is said to be Lipschitz continuous (globally) with respect to ${\bf y}$ if there exists $\alpha > 0$ such that
+    $$ |{\bf f}(t, {\bf y_1}) - {\bf f}(t, {\bf y_1})| \leq \alpha|{\bf y_1 - y_2}|$$
+    for all $(t, {\bf y_1})$ and $(t, {\bf y_2})$ in $(a,b) \times D$. $\alpha$ should be finite.
+\end{defn}
+\begin{thm}[Sufficient condition for Lipschitz continuity of ${\bf f}(t, {\bf y})$]
+    Let ${\bf f} \colon (a,b) \times D \to \mathbb{R}^n$ be a $C^1$ vector valued function, where $D$ is a convex domain in $\mathbb{R}^n$ such that
+    $$ \sup\limits_{(t, {\bf y}) \in (a,b) \times D} \left|\frac{\partial f_i}{\partial y_j}(t, {\bf y})\right| = \alpha < \infty,$$
+    for $i,j = 1,2,\dots, n$. Then , ${\bf f}(t, {\bf y})$ is Lipschitz continuous on $(a,b) \times D$ with respect to ${\bf y}$ having a Lipschitz constant less than or equal to a multiple of $\alpha$.
+\end{thm}
+\begin{rem}[Convex Domain]
+    A set is called a convex domain if it contains all the line segments between any two points of the set.
+\end{rem}
+\begin{rem}
+    Lipschitz continuity is a smoothness property stronger than continuity, but weaker than differentiability, locally. There can be functions which are not differentiable but still they can be lipschitz continuous.
+\end{rem}
+\begin{thm}[Calculus Lemma]
+    Let $(a,b)$ be a finite or infinite interval and $h \colon (a,b) \to \mathbb{R}$ satisfy either
+    \begin{enumerate}[(i)]
+        \item $h$ is bounded above and non-decreasing or
+        \item $h$ is bounded below and non-increasing,
+    \end{enumerate}
+    then, $\lim\limits_{t \to b} h(t)$ exists.    
+\end{thm}
+\begin{proof}
+    Let $\alpha = \sup\limits_{t \in (a,b)} h(t)$. For some $\varepsilon > 0$, $\alpha - \varepsilon$ is not a supremum. Hence there exists $t_0$ such that $\alpha - \varepsilon < h(t_0) < \alpha$. For some $t \in (a,b)$ such that $t \geq t_0$ then 
+    $$\alpha - \varepsilon < h(t_0) \leq h(t) < \alpha$$ 
+    Then $\alpha - h(t) < \varepsilon$. Also above can be written as $ \alpha < h(t_0) + \varepsilon \leq h(t) + \varepsilon < \alpha + \varepsilon$. Then $h(t) + \varepsilon < \alpha + \varepsilon \implies h(t) < \alpha + \varepsilon \implies h(t) - \alpha < \varepsilon$. Therefore
+    $$ |h(t) - \alpha| < \varepsilon \text{ }\forall t \geq t_0 \implies \lim\limits_{t \to b}h(t) = \alpha$$
+\end{proof}
+\begin{thm}[Change of Variable Formula]
+    Let $g \colon [c,d] \to \mathbb{R}$ be a $C^1$ function and let $[a,b]$ be any interval containing the image of $g$, that is $g[c,d] \subset g[a,b]$. If $f \colon[a,b] \to \mathbb{R}$ is a continuous function, then
+    $$ \int_c^d f(g(t))g'(t) dt = \int_{g(c)}^{g(d)} f(x) dx.$$
+\end{thm}
+\begin{thm}[Generalized Leibnitz Formula]
+    Let $\alpha, \beta \colon [a,b] \to \mathbb{R}$ be differentiable functions and $c,d$ be real numbers satisfying 
+    $$ c \leq \alpha(t), \beta(t) \leq d\text{, for all }t \in [a,b].$$
+    Let $f \colon[a,b] \times [c,d] \to \mathbb{R}$ be a continuous function such that $\frac{\partial f}{\partial t}(t,s)$ is also continuous. Define
+    $$F(t) = \int_{\alpha(t)}^{\beta(t)} f(t,s) ds.$$
+    Then, $F$ is differentiable and
+    $$ \frac{dF}{dt} = \int_{\alpha(t)}^{\beta(t)} \frac{\partial f}{\partial t}(t,s) ds + f(t, \beta(t))\frac{d\beta}{dt} - f(t, \alpha(t)) \frac{d\alpha}{dt}.$$
+\end{thm}
+\begin{defn}[Banach space]
+    A normed linear space which is a complete metric space (metric space by the norm) is called a Banach space. 
+\end{defn}
+\begin{eg}[Examples of Banach space]
+    $\mathbb{R}^n$ under supremum norm and $p$-norm. Function space $C[a,b]$ with supremum norm. However, it is {\it not} a complete space with repect to $\|\cdot\|_1$ norm.
+\end{eg}
+\begin{rem}
+    A sequence $\{f_n\} \subset C[a,b]$, $f_n \to f$ in supremum norm is equivalent to saying that $f_n$ converges uniformly to $f$ ($\exists \delta > 0$ which works in supremum norm for $f$, will work for all $f$ in the sequence.)
+\end{rem}
+\begin{thm}[Banach Fixed Point theorem]
+    Suppose $(X,d)$ is a complete metric space and $T \colon X \to X$ is a contraction, that is, there exists an $\alpha \in (0,1)$ such that
+    $$ d(Tx, Ty) \leq \alpha d(x,y)$$
+    for all $x,y \in X$. Then, $T$ has a unique fixed point $x^* \in X$. Further, the sequence $\{x_k\}$ defined by $x_k = Tx_{k-1}, x_0 \in X$ is arbitrary and $k = 1,2,\dots,$ converges to $x^*$.
+\end{thm}
+\begin{rem}
+    If we omit the contraction condition then $f(x) = x + 1$ show there does not exists any fixed point. If completion condition is droped then $f \colon (0,1) \to (0,1)$ defined by $f(x) = mx, 0 < m < 1$ is a contraction with $\alpha = m$ but no fixed point.
+\end{rem}
+\begin{proof}
+    Choose any $x_0 \in X$ and define the sequence $x_1 = Tx_0, x_2 = T^2x_0, \cdots, x_k = T^kx_0, \cdots.$ We need to show that sequence $\{x_k\}$ is a cauchy sequence. To see this
+    $$ d(x_{n+1}, x_n) = d(Tx_n, Tx_{n-1}) \leq \alpha  d(x_n, x_{n-1})$$
+    By induction, 
+    $$ d(x_{n+1}, x_n) \leq \alpha^n d(x_1, x_0)$$
+    Consider, for $m < n$ and using triangle inequality
+    $$ d(x_n, x_m) \leq d(x_n, x_{n-1}) + \cdots + d(x_{m+1}, x_m) \leq \alpha^m \frac{1-\alpha^{n-m-1}}{1-\alpha} d(x_1, x_0)$$
+    and the rhs $\to 0$ as $n,m \to \infty$. Hence the sequence is cauchy and by completeness, there exists $x^* \in X$ such that $x_k \to x^*$. By  continuity of $T$, we get $Tx_k \to Tx^*$. By continuity of $T$, we get $Tx_k \to Tx^*$. But $Tx_k = x_{k+1} \to x^*$. Thus, $Tx^* = x^*$. If there exists $y^*$ with same properties as $x^*$ then by uniqueness of limits $x^* = y^*$. 
+\end{proof}
+\begin{rem}
+    Here, fixed point can be constructed with any desired accuracy as limiting value is fixed point. And secondly, any point can be taken as an initial guess.
+\end{rem}
 
+\begin{cor}
+    Let $T \colon X \to X$ where $X$ is a complete metric space, be such that $T^k$ is a contraction for some $k \geq 1$. Then, $T$ has a unique fixed point.
+\end{cor}
+\begin{proof}
+    Since, $T^k$ is contraction map hence it has a unique fixed point (by Banach fixed point theorem). Let $x^*$ be that point i.e. $T^kx^* = x^*$. Applying $T$, we get $T^k (Tx^*) = Tx^*$ implies $Tx^*$ is the fixed point for $T^k \implies Tx^* = x^*$. Therefore, $x^*$ is the fixed point of $T$. For uniqueness, assume $x_1$ is another fixed point for $T \implies Tx_1 = x_1$. Applying $T$ repeatedly, we get $T^kx_1 = x_1$ but fixed point for $T^k$ is $x^*(unique) \implies x^* = x_1$.
+\end{proof}
+\section{Preliminaries from Linear Algebra}
+\begin{defn}[Normed Linear Space]
+    A norm, denoted by $\|\cdot\|$ on a vector space or a linear space $X$ is a mapping from $X \to \mathbb{R}$ that satisfies
+    \begin{itemize}
+        \item $\|x\| \geq 0$; $\|x\| = 0$ if and only if $x = 0$,
+        \item $\|ax\| = |a|\|x\|,$
+        \item (Triangle inequality) $\|x+y\| \leq \|x\| + \|y\|$,
+    \end{itemize} 
+    for all $x,y \in X$ and scalar $a$.
+\end{defn}
+\begin{eg}
+    $\mathbb{R}^n, \mathbb{C}^n$
+\end{eg}
+\begin{rem}
+    Every normed linear space is a metric space with metric induced by the norm. A metric space can be equipped with different norms which are fundamentally different. $C[0,1]$ with sup norm is complete while with the integral norm $\left(\int_0^1 \left|f(x)\right| dx\right)$ is not complete.
+\end{rem}
+\begin{defn}[Vector Field]
+    A vector field on a space(most commonly Euclidean space) is a function $\vec{F}$ that assigns a vector to each point of the space.
+\end{defn}
+\begin{defn}[Matrix norm]
+    $|A|$ should satisfy the following criterion
+    \begin{itemize}
+        \item $|A| \geq 0$; $|A| = 0$ if and only if $A = 0$,
+        \item $|aA| = |a||A|,$
+        \item (Triangle inequality) $|A + B| \leq |A| + |B|,$
+        \item $|AB| \leq |A||B|$
+    \end{itemize}
+    for all $A,B \in M_n(\mathbb{R})$ and scalars $a$.
+\end{defn}
+\begin{rem}
+    $M_n(\mathbb{R})$ is a complete metric space.
+\end{rem}
+\subsection{Matrix Exponential $e^A$}
+Let $A \in \mathbb{M}_n{\mathbb{R}},$ define the sequence of matrices
+$$ S_k = I + A + \frac{A^2}{2!} + \dots + \frac{A^k}{k!}.$$
+For $k > l,$
+$$ |S_k - S_l| \leq \sum\limits_{j = l + 1}^{k} \frac{|A|^j}{j!} \to 0 \text{ as } l,k \to \infty.$$
+Thus $\{S_k\}$ is a Cauchy sequence and converges to some $S \in M_n(\mathbb{R}).$
+
+\begin{defn}
+    Given $A \in M_n(\mathbb{R})$, $e^A$ is defined as
+    $$ e^A = S$$ where $S = \lim\limits_{k \to \infty} \sum\limits_{j = 0}^k \frac{A^j}{j!}.$
+\end{defn}
+\begin{rem}
+    $e^A \in M_n(\mathbb{R})$. Also, $|e^A| \leq e^{|A|}$ (substitute the values to see this.)
+\end{rem}
+\begin{rem}
+    For diagonal matrix $A = diag(\lambda_1, \dots, \lambda_n) \implies A^j = diag(\lambda_1^j, \dots, \lambda_n^j)$ and $e^A = \sum\limits_{j=0}^{\infty}\frac{A^j}{j!}$ then 
+    $$e^A = \sum\limits_{j=0}^{\infty}\frac{1}{j!}~diag(\lambda_1^j, \dots, \lambda_n^j) \implies e^A = diag(\sum\limits_{j=0}^{\infty}\frac{\lambda_1^j}{j!}, \dots, \sum\limits_{j=0}^{\infty}\frac{\lambda_n^j}{j!}),$$ therefore, 
+    $$e^A = diag(e^{\lambda_1}, \dots, e^{\lambda_n}).$$
+\end{rem}
+Here are important observations:
+\begin{enumerate}
+    \item If $A \sim B \implies \exists$ non-singular matrix $P$ such that $B = PAP^{-1}$. Then $e^A \sim e^B$ ($\because B^j = PA^jP^{-1} \implies e^B = P\left(\sum\limits_{j=0}^{\infty}\frac{A^j}{j!}\right) P^{-1} \implies e^B = Pe^AP^{-1}$).
+    \item 
+\end{enumerate}
+\section{Doubts}
+\paragraph{\bf Ques 1.} How to prove theorem 7? Is there a mean value theorem for vector valued functions that I can apply here?
+\paragraph{\bf Ques 2.} Proof for change of varible formula in Theorem 9?
+\paragraph{\bf Ques 2.} Proof for generalized Leibnitz formula in Theorem 10?
 \end{document}
