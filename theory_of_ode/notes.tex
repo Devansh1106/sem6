@@ -275,8 +275,29 @@ Thus $\{S_k\}$ is a Cauchy sequence and converges to some $S \in M_n(\mathbb{R})
 Here are important observations:
 \begin{enumerate}
     \item If $A \sim B \implies \exists$ non-singular matrix $P$ such that $B = PAP^{-1}$. Then $e^A \sim e^B$ ($\because B^j = PA^jP^{-1} \implies e^B = P\left(\sum\limits_{j=0}^{\infty}\frac{A^j}{j!}\right) P^{-1} \implies e^B = Pe^AP^{-1}$).
-    \item 
+    \item If $A$ represents a block diagonal matrix $ A = diag(A_1, \dots, A_k)$ where all $A's$ are square matrix on the diagonal (their size maybe different) then 
+    $$ e^A = diag(e^{A_1},e^{A_2}, \dots, e^{A_k}).$$
+    \begin{rem}
+        \begin{enumerate}
+            \item $|A| \leq \max\{|A_1|, \dots, |A_k|\} \implies$
+            \item $|e^A| \leq \max\{e^{|A_1|}, \dots, e^{|A_k|}\}.$ ((a)suspicious identity to me!!)
+            \item Equality in above cases holds for Euclidean norm.
+        \end{enumerate}
+    \end{rem}
+    \paragraph{\bf Computing $e^A$} If $A$ is diagonalizable then we look for matrix $P$ so that $PAP^{-1} = B$ is diagonal matrix hence computing $e^A$ is easy.\par
+    If $A$ is not diagonalizable then we look for $P$ so that $PAP^{-1}$ is a block diagonal, with easily computable $e^{A_i}$.
+    \par If $T$ is a linear transformation and it is invariant on all coordinate axes then $A$ is diagonalizable with respect to standard basis.
+    \par If usual coordinate axes are invariant under $T$ then we look for $n$ distinct directions, if possible, which are invariant under $T$ and then take these directions as new bases. The matrix with respect to this basis will be diagonal matrix.
 \end{enumerate}
+\begin{rem}
+    The set of all eigenvalues of $A$ is known as {\it spectrum} of $A$. It is denoted by $\sigma(A)$.
+\end{rem}
+The eigenvalues of $A$ are the roots of the {\it characteristics polynomials} det($\lambda I - A$) which is a real polynomial in $\lambda$ of degree $n$. The roots maybe real or complex. If the eigenvalue is real then there exists a corresponding real eigenvector and if it complex then there exists a corresponding complex eigenvector.
+
+
+
+
+
 \section{Doubts}
 \paragraph{\bf Ques 1.} How to prove theorem 7? Is there a mean value theorem for vector valued functions that I can apply here?
 \paragraph{\bf Ques 2.} Proof for change of varible formula in Theorem 9?
