@@ -17,6 +17,8 @@
 \newtheorem{defn}{Definition}
 \newtheorem{eg}{Example}
 \newtheorem{rem}{Remark}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
 \usepackage{lineno}
 
 %% The above lines are for formatting.  In general, you will not want to change these.
@@ -31,6 +33,7 @@
     We shall learn some theory related to ordinary differential equations.
 \end{abstract}
 \maketitle
+{\large \part{\centering \\ Preliminaries}}
 \section{Preliminaries from Real Analysis}
 \begin{defn}[Pointwise convergence]
     Let $I$ be any interval in $\mathbb{R}$. Let $f_n:I \rightarrow \mathbb{R}, n = 1,2,\dots,$ be a sequence of functions. We say that the $\{f_n\}$ converges pointwise to a function $f:I\subset \mathbb{R} \rightarrow \mathbb{R}$ if the sequence $\{f_n(x)\}$ converges to $f(x)$ for every $x \in I$.
@@ -130,7 +133,7 @@ for every $x \in X$ and $f_n \to f$ uniformly over $X$.
     The smallest $\alpha$ satisfying the above equation is called {\it Lipschitz constant} of $f$. It should be finite.
 \end{rem}
 \begin{rem}
-    If $f$ is globally Lipschitz, then it is uniformly continuous.(Take $\delta = \frac{\varepsilon}{M}$).
+    If $f$ is globally Lipschitz, then it is uniformly continuous.(Take $\delta = \frac{\varepsilon}{\alpha}$).
 \end{rem}
 \begin{thm}[Sufficient condition for Lipschitz continuity]
     Suppose $D$ is an open interval in $\mathbb{R}$ and $f \colon D \to \mathbb{R}$ is differentiable on $D$ and $\alpha = \sup\limits_{x \in D}|f'(x)| < \infty$. Then, $f$ is Lipschitz with a Lipschitz constant less than or equal to $\alpha$.
@@ -294,12 +297,101 @@ Here are important observations:
 \end{rem}
 The eigenvalues of $A$ are the roots of the {\it characteristics polynomials} det($\lambda I - A$) which is a real polynomial in $\lambda$ of degree $n$. The roots maybe real or complex. If the eigenvalue is real then there exists a corresponding real eigenvector and if it complex then there exists a corresponding complex eigenvector.
 
-
-
-
-
 \section{Doubts}
 \paragraph{\bf Ques 1.} How to prove theorem 7? Is there a mean value theorem for vector valued functions that I can apply here?
 \paragraph{\bf Ques 2.} Proof for change of varible formula in Theorem 9?
 \paragraph{\bf Ques 2.} Proof for generalized Leibnitz formula in Theorem 10?
+
+\newpage
+{\large \part{\centering \\ First and Second order linear equations}}
+\section{First Order equations}
+\subsection{General form of IVP and BVP}
+General form of IVP of first order ODE is
+$$ 
+\left.
+\begin{array}{l}    % {l} for left alignment
+    \dot{y} = f(t, y) \\ y(t_0) = y_0
+\end{array}
+\right\}
+$$
+
+General form of IVP of second order ODE is
+$$
+\left.
+\begin{array}{l}
+    \ddot{y} = f(t, y, \dot{y}) \\ y(t_0) = y_0 \\ \dot{y}(t_0) = y_1
+\end{array}
+\right\}
+$$
+
+General form of BVP
+$$ 
+\left.
+\begin{array}{l}
+    \ddot{y} = f(t, y, \dot{y}) \text{ for } t \in (a,b) \\
+    \alpha_1y(a) + \beta_1 \dot{y}(a) = \gamma_1 \\
+    \alpha_2 y(b) + \beta_2 \dot{y}(b) = \gamma_2     
+\end{array}
+\right\}
+$$
+\begin{defn}[Solution of ODE]
+    Let $f$ be defined on the rectangle in $ R:= (a,b) \times (c,d)$ containing the initial data $(t_0, y_0)$. A solution to the IVP is a function $ y : (\bar{a}, \bar{b}) \to \R$ which is differentiable and satisfies the IVP together with initial condition.
+\end{defn}
+\begin{rem}
+    Interval $(\bar{a}, \bar{b})$ is referred as interval of existence of solution. For all $ t \in (\bar{a}, \bar{b}) \subset (a,b), y(t) \in (c,d)$. If $(\bar{a},\bar{b}) = (a,b)$ then $y$ is called the global solution otherwise it is a local solution. 
+\end{rem}
+For vector valued functions, definition of solution can be extended.
+Let ${\bf f}:(a,b) \times \Omega \to \R^n$ be a vector valued continuous function so that ${\bf f} = (f_1, \dots, f_n)$ and each $f_i$ is a real valued continuous (we assume this throughout the notes) function, where $\Omega \subset \R^n$ is open domain. For a given initial value $y_0 \in \Omega$, the IVP is given by 
+$$
+\left.
+\begin{array}{l}
+    {\bf \dot{y} = f}(t, {\bf y}) \\
+    {\bf y}(t_0) = {\bf y}_0    
+\end{array}
+\right\}
+$$
+\subsection{First Order linear equations}
+A general first order ODE can be written as
+$$ f(t, y, \dot{y}) = h(t)$$
+where $h(t)$ is the function of $t$ only. From linear algebra it can be shown that $f$ takes the form (TODO)
+$$ f(t,y,\dot{y}) = p_0(t)\dot{y} + p_1(t)y$$
+Thus the linear differential operator is given by $ L = p_0(t)\frac{d}{dt} + p_1(t)$. General linear and homogeneous ODE is given by $$ Ly = 0$$ and non-homogeneous ODE is given by $$ Ly = q(t)$$ where $p_0, p_1$ and $q$ are the given functions of $t$.
+\begin{rem}
+    Due to the linear structure of the operator, it follows the superposition principle i.e. if $y_1$ and $y_2$ are the two solutions of the equation then $\alpha y_1 + \beta y_2$ is also a solution.
+\end{rem}
+\begin{defn}[Singular equations]
+    The equations in which coefficient of the highest order term vanished at one or more points are called singular equations. E.g. Bessel's eqn, Lagrange eqn, Legendre eqn.
+\end{defn}
+\begin{defn}[Regular equations]
+    The coefficient of highest order term is never $0$. Their general form is given by $Ly := \dot{y} + p(t)y = q(t)$.
+\end{defn}
+\begin{rem}
+    A continuous function defined on a interval in $\R$ whose modulus is a constant, then $f$ itself is constant.  
+\end{rem}
+\par For non-homogeneous equation
+$$ \dot{y} + p(t)y = q(t) $$
+we can find a function $h(t)$ such that $ \dot{h}(t) = \dot{y} + p(t)y$ then we $\dot{h}(t) = q(t)$ which can be integrated easily to find the solution. Let a differentiable function $\mu(t)$ such that $d(\mu y) /dt = \mu \dot{y} + \dot{\mu}y$. Multiplying both sides by $\mu(t)$ in main non-homogeneous equation and then comparing with the derivative of $\mu(t)$, we get $\dot{\mu}(t) = \mu(t)p(t)$. 
+\begin{figure}[!ht]
+    \centerline{\includegraphics[scale=.30]{../assests/integrating_fac.png}}
+    \caption{why $\mu$ has to be positive? Check this.}
+    \label{fig1}
+\end{figure}
+Here $\mu(t)$ is called {\it integrating factor} associated with homogeneous part.
+
+\subsection{Exact Differential equations}
+\begin{defn}[Exact Differential equations]
+    If the differential equation $ \dot{y} = f(t, y)$ can be written as $\frac{d}{dt}\phi(t,y(t)) = 0$ for a two variable function $\phi$ in a domain in the $t-y$ plane, then the differential equation is said to be an exact differential equation.
+\end{defn}
+\paragraph{\bf Necessary condition for DE to be exact}
+Consider the differential form $Mdt + Ndy$, this can be written as general first order equation as
+$$ M(t,y) + N(t,y) \dot{y} = 0$$
+Above DE is exact {\it if and only if} there exists $\phi$ such that $\frac{d}{dt}\phi(t,y) = 0$. Therefore,
+$$ \frac{\partial}{\partial t}\phi(t,y) + \frac{\partial}{\partial y}\phi(t,y)\dot{y} = M(t,y) + N(t,y) \dot{y} $$ and this implies 
+$$ M = \frac{\partial \phi}{\partial t} \text{ and } N = \frac{\partial \phi}{\partial y}.$$
+Assuming $\phi$ is double differentiable, we get 
+$$ \frac{\partial M}{dy} = \frac{\partial N}{dt}$$
+\begin{thm}
+    Assume $M,N$ are defined on a rectangle $D = (a,b) \times (c,d)$ and $M,N \in C^1(D)$. Then, there exists a function $\phi$ defined in $D$, such that $M = \frac{\partial \phi}{\partial t}$ and $N = \frac{\partial \phi}{\partial t}$ if and only if $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial t}$.
+\end{thm}
+
 \end{document}
