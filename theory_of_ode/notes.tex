@@ -19,6 +19,7 @@
 \newtheorem{rem}{Remark}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\pd}{\partial}
 \usepackage{lineno}
 
 %% The above lines are for formatting.  In general, you will not want to change these.
@@ -357,7 +358,7 @@ where $h(t)$ is the function of $t$ only. From linear algebra it can be shown th
 $$ f(t,y,\dot{y}) = p_0(t)\dot{y} + p_1(t)y$$
 Thus the linear differential operator is given by $ L = p_0(t)\frac{d}{dt} + p_1(t)$. General linear and homogeneous ODE is given by $$ Ly = 0$$ and non-homogeneous ODE is given by $$ Ly = q(t)$$ where $p_0, p_1$ and $q$ are the given functions of $t$.
 \begin{rem}
-    Due to the linear structure of the operator, it follows the superposition principle i.e. if $y_1$ and $y_2$ are the two solutions of the equation then $\alpha y_1 + \beta y_2$ is also a solution.
+    Due to the linear structure of the operator, it follows the superposition principle i.e. if $y_1$ and $y_2$ are the two solutions of the homogeneous equation then $\alpha y_1 + \beta y_2$ is also a solution of the homogeneous equation.
 \end{rem}
 \begin{defn}[Singular equations]
     The equations in which coefficient of the highest order term vanished at one or more points are called singular equations. E.g. Bessel's eqn, Lagrange eqn, Legendre eqn.
@@ -391,7 +392,96 @@ $$ M = \frac{\partial \phi}{\partial t} \text{ and } N = \frac{\partial \phi}{\p
 Assuming $\phi$ is double differentiable, we get 
 $$ \frac{\partial M}{dy} = \frac{\partial N}{dt}$$
 \begin{thm}
-    Assume $M,N$ are defined on a rectangle $D = (a,b) \times (c,d)$ and $M,N \in C^1(D)$. Then, there exists a function $\phi$ defined in $D$, such that $M = \frac{\partial \phi}{\partial t}$ and $N = \frac{\partial \phi}{\partial t}$ if and only if $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial t}$.
+    Assume $M,N$ are defined on a rectangle $D = (a,b) \times (c,d)$ and $M,N \in C^1(D)$. Then, there exists a function $\phi$ defined in $D$, such that $M = \frac{\partial \phi}{\partial t}$ and $N = \frac{\partial \phi}{\partial y}$ if and only if $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial t}$.
 \end{thm}
+\begin{proof}
+    $(\implies)$ Assume there exists a function $\phi$ following the needed conditions given in theorem. The first relation $M = \frac{\partial \phi}{\partial t}$ suggests that $\phi(t, y) = \int M dt + h(y) $ for some $h$. Hence,
+    $$ N = \frac{\partial \phi}{\partial t} = \int \frac{\partial M}{\partial y} dt + \frac{\partial h(y)}{\partial y} \implies \frac{\partial h}{\partial y} = N - \int \frac{\partial M}{\partial y} dt $$
+    Since, LHS is a function of $y$ alone hence RHS should be a function of $y$ alone. Therefore,
+    $$ \frac{\partial}{\partial t}\left(N - \int \frac{\partial M}{\partial y} dt\right) = 0 \implies \frac{\partial N}{\partial t} - \frac{\partial M}{\partial y} = 0$$
+    $(\impliedby)$ Assume $M$ and $N$ satisfies $\frac{\pd M}{\pd y} = \frac{\pd N}{\pd t}$. Let a point $(t_0, y_0) \in D$. Define $\phi(t,y) = \int_{t_0}^{t} M(s,y) ds + h(y)$ where $h$ has to be determined. 
+    \begin{align*}
+        \frac{\pd \phi(t,y)}{\pd y} &= \int_{t_0}^{t} \frac{\pd M(s,y)}{\pd y} ds + \frac{\pd h(y)}{\pd y} \\
+        &= \int_{t_0}^{t} \frac{\pd N(s, y)}{\pd t} ds + \frac{\pd h(y)}{\pd y}\\
+        &= N(t, y) - N(t_0, y) + \frac{\pd h(y)}{\pd y}
+    \end{align*}
+    If we want $\frac{\pd \phi}{\pd y}$ to be equal to $N(t,y)$ then $\frac{\pd h(y)}{\pd y} = N(t_0,y) \implies h(y) = \int_{y_0}^{y} N(t_0, \xi) d\xi$. Therefore, 
+    $$ \phi (t, y) = \int_{t_0}^{t} M(s, y) ds + \int_{y_0}^{y} N(t_0, \xi) d\xi$$ 
+    $\phi$ is determined upto a constant. Hence on changing the point $(t_0, y_0)$ the constant term in $\phi$ will change. We may discard all the constant in expression of $\phi$.
+\end{proof}
+\begin{defn}[Alternate definition of Exact ODE]
+    The DE, $M(t,y) + N(t, y)\dot{y} = 0$ is said to be exact if $\frac{\pd M}{\pd y} = \frac{\pd N}{\pd t}$.     
+\end{defn}
+\paragraph{\bf Solution of exact DEs} If a DE is exact then it can be written as $\frac{\pd \phi}{\pd t}(t,y) = 0$ and the solution of this DE can be written as $\phi = constant$.
+
+\section{Second order linear equations} 
+A second order linear differential equation is given by 
+$$ Ly \equiv \ddot{y} + p(t)\dot{y} + q(t)y = r(t). $$
+The operator $ Ly = L(t, y, \dot{y}, \ddot{y})$ is a multi-linear operator (linear in each of its variable). The IVP for second order linear ODE is given by
+$$
+\left.
+\begin{array}{l}
+    \ddot{y} + p(t)\dot{y} + q(t)y = r(t), t\in I \\
+    y(t_0) = y_0, \dot{y}(t_0) = y_1    
+\end{array}
+\right\}
+$$
+\begin{thm}
+    Let $p,q,r$ be continuous functions defined in a compact interval $I(t_0)$ and $y_0, y_1$ be any real numbers. Then, the IVP above has a unique solution $y$ defined in $I(t_0)$ satisfying $y(t_0) = y_0$ and $\dot{y}(t_0) = y_1$
+\end{thm}
+\begin{lem}
+    Wronskian $W(z,w) \equiv 0$ if and only if $z$ and $w$ are dependent. Alternatively, $W \not\equiv 0$ if and only if $z$ and $w$ are independent. 
+\end{lem}
+\begin{proof}
+    Let $t_0 \in I$ be a point in interval $I$ on which $z$ and $w$ are defined. Then the Wronskian is given by
+    $$  W = \begin{vmatrix}
+        z(t_0) & w(t_0) \\
+        \dot{z}(t_0) & \dot{w}(t_0) 
+    \end{vmatrix}
+    $$
+    This comes from the linear system (for $y_0$ and $y_1$ check next theorem)
+    $$ \left\{
+        \begin{array}{l}
+            z(t_0)\alpha + w(t_0) \beta = y_0 \\
+            \dot{z}(t_0) \alpha + \dot{w}(t_0) \beta = y_1 
+        \end{array}
+        \right.
+    $$
+    $(\impliedby)$ If $z = kw$ or $w = kz$ then the $W \equiv 0$.\\
+    $(\implies)$ Assume that $W \equiv 0 \implies z\dot{w} - \dot{z}w = 0$
+    \begin{align*}
+        z\frac{dw}{dt} &= \frac{dz}{dt}w \\
+        \int \frac{dw}{wdt} \times dt &= \int \frac{dz}{zdt} \times dt \\
+        \ln w &= \ln z + c\\
+        w &= e^{\ln z}e^c\\
+        w &= ze^c
+    \end{align*} 
+    Therefore, $w$ and $z$ are dependent.
+\end{proof}
+\begin{thm}
+    Let $z,w$ be two solutions of the linear homogeneous second order DE. Then, for any $\alpha, \beta \in \R$, the function $y = \alpha z + \beta w$ is also a solution.\\ Further, if $z$ and $w$ are two linearly independent solution of the homogeneous DE in an interval $I(t_0)$, then every solution can be written as a linear combination of $z$ and $w$.
+\end{thm}
+\begin{proof}
+    First part of the theorem is trivial to verify. Let $y$ be a solution of the homogeneous DE. For some $t_0 \in I$, $y(t_0) = y_0 $ and $\dot{y}(t_0) = y_1$. We want to show that there exists $\alpha$ and $\beta$ such that $y(t) = \alpha z(t) + \beta w (t)$. Since $z$ and $w$ are independent, $W \not\equiv 0$ then there exists a unique solution to the linear system
+    $$ \left\{
+    \begin{array}{l}
+        z(t_0)\alpha + w(t_0)\beta = y_0 \\
+        \dot{z}(t_0) \alpha + \dot{w}(t_0) \beta = y_1
+    \end{array}
+    \right.
+    $$
+    Hence, there exists $\alpha $ and $\beta$. Here, $z$ and $w$ are basis elements for the solution space of second order linear homogeneous DE. Therefore, all the solution for this equation can be written in this form.
+\end{proof}
+\begin{thm}
+    $\dim(S) = 2$ where $S$ is the solution space of second order linear homogeneous DE.
+\end{thm}
+\begin{proof}
+    TODO
+\end{proof}
+\begin{rem}
+    For $n$-th order linear homogeneous DE, the solution space is $n$-dimensional.
+\end{rem}
+
+
 
 \end{document}
