@@ -17,8 +17,7 @@
 \newtheorem{defn}{Definition}
 \newtheorem{eg}{Example}
 \newtheorem{rem}{Remark}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\bb}[1]{\mathbb{#1}}
 \newcommand{\pd}{\partial}
 \usepackage{lineno}
 
@@ -336,13 +335,13 @@ $$
 \right\}
 $$
 \begin{defn}[Solution of ODE]
-    Let $f$ be defined on the rectangle in $ R:= (a,b) \times (c,d)$ containing the initial data $(t_0, y_0)$. A solution to the IVP is a function $ y : (\bar{a}, \bar{b}) \to \R$ which is differentiable and satisfies the IVP together with initial condition.
+    Let $f$ be defined on the rectangle in $ R:= (a,b) \times (c,d)$ containing the initial data $(t_0, y_0)$. A solution to the IVP is a function $ y : (\bar{a}, \bar{b}) \to \bb{R}$ which is differentiable and satisfies the IVP together with initial condition.
 \end{defn}
 \begin{rem}
     Interval $(\bar{a}, \bar{b})$ is referred as interval of existence of solution. For all $ t \in (\bar{a}, \bar{b}) \subset (a,b), y(t) \in (c,d)$. If $(\bar{a},\bar{b}) = (a,b)$ then $y$ is called the global solution otherwise it is a local solution. 
 \end{rem}
 For vector valued functions, definition of solution can be extended.
-Let ${\bf f}:(a,b) \times \Omega \to \R^n$ be a vector valued continuous function so that ${\bf f} = (f_1, \dots, f_n)$ and each $f_i$ is a real valued continuous (we assume this throughout the notes) function, where $\Omega \subset \R^n$ is open domain. For a given initial value $y_0 \in \Omega$, the IVP is given by 
+Let ${\bf f}:(a,b) \times \Omega \to \bb{R}^n$ be a vector valued continuous function so that ${\bf f} = (f_1, \dots, f_n)$ and each $f_i$ is a real valued continuous (we assume this throughout the notes) function, where $\Omega \subset \bb{R}^n$ is open domain. For a given initial value $y_0 \in \Omega$, the IVP is given by 
 $$
 \left.
 \begin{array}{l}
@@ -367,11 +366,11 @@ Thus the linear differential operator is given by $ L = p_0(t)\frac{d}{dt} + p_1
     The coefficient of highest order term is never $0$. Their general form is given by $Ly := \dot{y} + p(t)y = q(t)$.
 \end{defn}
 \begin{rem}
-    A continuous function defined on a interval in $\R$ whose modulus is a constant, then $f$ itself is constant.  
+    A continuous function defined on a interval in $\bb{R}$ whose modulus is a constant, then $f$ itself is constant.  
 \end{rem}
-\par For non-homogeneous equation
+\subsubsection{\bf Integration factor} For non-homogeneous equation
 $$ \dot{y} + p(t)y = q(t) $$
-we can find a function $h(t)$ such that $ \dot{h}(t) = \dot{y} + p(t)y$ then we $\dot{h}(t) = q(t)$ which can be integrated easily to find the solution. Let a differentiable function $\mu(t)$ such that $d(\mu y) /dt = \mu \dot{y} + \dot{\mu}y$. Multiplying both sides by $\mu(t)$ in main non-homogeneous equation and then comparing with the derivative of $\mu(t)$, we get $\dot{\mu}(t) = \mu(t)p(t)$. 
+we can find a function $h(t)$ such that $ \dot{h}(t) = \dot{y} + p(t)y$ then we $\dot{h}(t) = q(t)$ which can be integrated easily to find the solution. Let a differentiable function $\mu(t)$ then $d(\mu y) /dt = \mu \dot{y} + \dot{\mu}y$. Multiplying both sides by $\mu(t)$ in main non-homogeneous equation and then comparing with the derivative of $\mu(t)$, we get $\dot{\mu}(t) = \mu(t)p(t)$. 
 \begin{figure}[!ht]
     \centerline{\includegraphics[scale=.30]{../assests/integrating_fac.png}}
     \caption{why $\mu$ has to be positive? Check this.}
@@ -458,8 +457,9 @@ $$
     \end{align*} 
     Therefore, $w$ and $z$ are dependent.
 \end{proof}
+\subsection{Homogeneous equations}
 \begin{thm}
-    Let $z,w$ be two solutions of the linear homogeneous second order DE. Then, for any $\alpha, \beta \in \R$, the function $y = \alpha z + \beta w$ is also a solution.\\ Further, if $z$ and $w$ are two linearly independent solution of the homogeneous DE in an interval $I(t_0)$, then every solution $y$ can be written as $\alpha z + \beta w$.
+    Let $z,w$ be two solutions of the linear homogeneous second order DE. Then, for any $\alpha, \beta \in \bb{R}$, the function $y = \alpha z + \beta w$ is also a solution.\\ Further, if $z$ and $w$ are two linearly independent solution of the homogeneous DE in an interval $I(t_0)$, then every solution $y$ can be written as $\alpha z + \beta w$.
 \end{thm}
 \begin{proof}
     First part of the theorem is trivial to verify. Let $y$ be a solution of the homogeneous DE. For some $t_0 \in I$, $y(t_0) = y_0 $ and $\dot{y}(t_0) = y_1$. We want to show that there exists $\alpha$ and $\beta$ such that $y(t) = \alpha z(t) + \beta w (t)$. Since $z$ and $w$ are independent, $W \not\equiv 0$ then there exists a unique solution to the linear system
@@ -472,15 +472,29 @@ $$
     $$
     Hence, there exists $\alpha $ and $\beta$. Here, $z$ and $w$ are basis elements for the solution space of second order linear homogeneous DE. Therefore, all the solution for this equation can be written in this form.
 \end{proof}
-\begin{thm}
+\begin{cor}
     $\dim(S) = 2$ where $S$ is the solution space of second order linear homogeneous DE.
-\end{thm}
+\end{cor}
 \begin{proof}
-    TODO
+    By previous theorem, it is clear that $\{z,w\}$ is a spanning and independent set. Hence, it is a basis of the solution space $S$ implies $\dim(S) = 2$. TODO.
 \end{proof}
 \begin{rem}
     For $n$-th order linear homogeneous DE, the solution space is $n$-dimensional.
 \end{rem}
+\subsubsection{\bf Method to find independent solutions for homogeneous linear ODE} The main idea is to remove the term involving the first order derivative $\dot{y}$ via an integrating factor.\\
+Solution form we look for $y = u(t)v(t)$ implies $\dot{y} = \dot{u}v + u\dot{v}$ and $\ddot{y} = u\ddot{v} + 2\dot{u}\dot{v} + \ddot{u}v$. Substituting in $Ly = 0$, we get
+\begin{align*}
+    (u\ddot{v} + 2\dot{u}\dot{v} + \ddot{u}v) + p(t)(\dot{u}v + u\dot{v}) + q(t)uv &= 0\\
+    u\ddot{v} + (2\dot{u} + p(t)u)\dot{v} + (\ddot{u} + p(t)\dot{u})v + q(t)uv &= 0
+\end{align*}
+Choose $u$ such that coefficient of $\dot{v}$ vanishes
+$$ 2\dot{u} + p(t)u = 0$$
+\paragraph{\bf Note} Here, $u$ never vanishes if it is not $0$ initially. From above equation $u$ can be found.
+The final equation after putting the above condition can be solved for $v$ hopefully in some situations.
+
+\subsubsection{\bf Method of Reduction of order} This methods can be used to find the another linearly independent solution of the linear homogeneous equation given a non trivial solution to the equation.
+\par Give $y_1(t)$ to be a non-trivial solution, to produce another independent solution we assume the form $y_2(t) = c(t)y_1(t)$. We can find Wronskian to show that $y_1(t)$ and $y_2(t)$ are independent with their general form that we have assumed.
+
 \subsection{Non-homogeneous equations}
 \begin{equation}\label{1}
     Ly := \ddot{y} + p(t)\dot{y} + q(t)y = r(t)
@@ -496,12 +510,11 @@ $$
         \tilde{S} &= S + y_p        
     \end{align*}
 \end{proof}
-\paragraph{\bf Method of variation of parameters} This method can be used to find the particular solution, given the two independent solutions of corresponding homogeneous equation.\\
-If $y_1(t)$ and $y_2(t)$ are the two independent solutions of homogeneous equation. We seek the solution to non homogeneous equation of the form 
+\subsubsection{\bf Method of variation of parameters} This method can be used to find the particular solution, given the two independent solutions of corresponding homogeneous equation.\\
+If $y_1(t)$ and $y_2(t)$ are the two independent solutions of homogeneous equation. We seek the solution for the non homogeneous equation, to be of the form
 $$ y(t) = c_1(t)y_1(t) + c_2(t)y_2(t) $$
 where $c_1(t)$ and $c_2(t)$ are the functions to be determined. Compute $Ly(t) = r(t)$, and then assume $\dot{c_1}y_1 + \dot{c_2}y_2 = 0$ to be one equation. Another equation can be found by substituting above assumption in $Ly(t) = r(t)$. Then by solving this system, we can find $c_1(t)$ and $c_2(t)$ and $y_p(t) = y(t)$.
-
-
+\paragraph{\bf Why $\dot{c_1}y_1 + \dot{c_2}y_2 = 0$?} Since, we just want {\it a} particular solution to the non-homogeneous equation under some condition hence we will make an assumption such that our calculation become easy. By this assumptions, we will get rid of all terms with derivative of $c_1$ and $c_2$.
 
 
 \section{Doubts}
