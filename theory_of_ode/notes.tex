@@ -515,11 +515,18 @@ If $y_1(t)$ and $y_2(t)$ are the two independent solutions of homogeneous equati
 $$ y(t) = c_1(t)y_1(t) + c_2(t)y_2(t) $$
 where $c_1(t)$ and $c_2(t)$ are the functions to be determined. Compute $Ly(t) = r(t)$, and then assume $\dot{c_1}y_1 + \dot{c_2}y_2 = 0$ to be one equation. Another equation can be found by substituting above assumption in $Ly(t) = r(t)$. Then by solving this system, we can find $c_1(t)$ and $c_2(t)$ and $y_p(t) = y(t)$.
 \paragraph{\bf Why $\dot{c_1}y_1 + \dot{c_2}y_2 = 0$?} Since, we just want {\it a} particular solution to the non-homogeneous equation under some condition hence we will make an assumption such that our calculation become easy. By this assumptions, we will get rid of all terms with derivative of $c_1$ and $c_2$.
-
+\subsubsection{\bf Method of Undetermined coefficient}(For special Non homogeneous terms) Consider the equation 
+$$ Ly := \ddot{y} + p\dot{y} + qy = e^{at}$$ 
+\begin{enumerate}
+    \item For RHS term to be $e^{at}$, we can have form of the particular solution as $y_p(t) = Ae^{at}/Ate^{at}/At^2e^{at} \dots$
+    \item For RHS term to be $\sin(bt)$, we can have particular solution for to be $y_p(t) = A\sin(bt) + B\cos(bt)$ or $ty_p(t)$ or $t^2y_p(t)$ and so on.
+    \item For RHS term to be $a_0 + a_1t + a_2t^2 + \dots a_nt^n$, we can have the particular solution form to be $y_p(t) = A_0 + A_1t + \dots + A_nt^n$ or $ty_p(t)$ or $t^2y_p(t)$ and so on.
+\end{enumerate}
 
 \section{Doubts}
 \paragraph{\bf Ques 1} In linear equations with constant coefficient, how is $\dot{y} \propto y$?
-
+\paragraph{\bf Ques 2} If we have the equation $\dot{y} + p(t)y = q(t)$ and the equation $\mu(t)\dot{y} + \mu(t)p(t)y = \mu(t)q(t)$ then how to show that they will have the same solution set?
+\paragraph{\bf Ques 3} Author mentioned that if $\mu(t) > 0$ then both above equations will have the same solution. But how to show this?
 
 
 \end{document}
