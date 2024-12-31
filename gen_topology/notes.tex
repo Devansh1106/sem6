@@ -322,6 +322,10 @@ The collection $\cal B$ forms the basis for product topology. For all $x \times 
     Let $W$ be the open subset of $X \times Y$ which is the product topology hence by definition there exist $U \times V \in X \times Y$ such that $U$ is open in $X$ and $V$ is open in $Y$. Since $\cal B$ and $\cal C$ are the bases for topology on $X$ and $Y$ respectively there exists $B \in \cal B$ and $C \in \cal C$ such that for each $x \in U \implies x \in B \subset U$ and for each $y \in V \implies y \in C \subset V$. Therefore, $x \times y \in B \times C \subset U \times V$. Hence by lemma $3$, $\cal D$ is the basis for topology on $X \times Y$.    
 \end{proof}
 
+\begin{exer}
+        
+\end{exer}
+
 \begin{defn}[Projections]
     Let $\pi_1 : X \times Y \to Y$ be defined by the equation
     $$ \pi_1(x,y) = x;$$ 
@@ -347,6 +351,17 @@ If $U$ is an open set of $X$ then $\pi_1^{-1}(U) = U \times Y$ which is open is 
     \noindent $(\impliedby)$ Let $x \in X \times Y$. This case is trivial since $U_i = X$ and $V_j = Y$ and then $x \in (X \times Y) \cup (X \times Y)$. This implies that $x \in \cup_j(\cup_i S_{ij})$. Therefore, $\cup_j(\cup_i)S_{ij} = X \times Y$. 
 
     TODO
+\end{proof}
+
+\begin{defn}[Open map]
+    A map $f : X \to Y$ is said to be an {\bf open map} if for every open set $U$ of $X$, the set $f(U)$ is open in $Y$.
+\end{defn}
+
+\begin{thm}
+    The projection maps $\pi_1 : X \times Y \to X$ and $\pi_2 : X \times Y \to Y$ are open maps.
+\end{thm}
+\begin{proof}
+    Let $U \times V$ be the open set in $X \times Y$ where $U$ is open is $X$ and $V$ is open in $Y$. Since, $\pi_1(U \times V) = U \subset X$ and $U$ is open in $X$. Same argument can be applied for $\pi_2(U \times V)$. This shows that $\pi_1$ and $\pi_2$ are open maps.
 \end{proof}
 
 \section{The Subspace topology}
@@ -419,6 +434,19 @@ $$ \bigcup_{i \in I} U_i \cap Y = (\cup_{i \in I} U_i) \cap Y$$
 \begin{rem}
     However, the resulting order topology on $Y$ need not be the same as the topology that $Y$ inherits as a subspace of $X$.
 \end{rem}
+
+\begin{defn}[Convex set]
+    Given an ordered set $X$, A subset $Y$ of $X$ is {\bf convex} in $X$ if for each pair of points $a < b$ of $Y$, the entire interval $(a,b)$ of $X$ is contained in $Y$. 
+\end{defn}
+\begin{rem}
+    The interval and rays in $X$ are convex in $X$.    
+\end{rem}
+\begin{thm}
+    Let $X$ be an ordered set in the order topology; let $Y$ be a subset of $X$ that is convex in $X$. Then the order topology on $Y$ is the same as topology $Y$ inherits as a subspace of $X$.
+\end{thm}
+\begin{proof}
+    
+\end{proof}
 
 
 \end{document}
