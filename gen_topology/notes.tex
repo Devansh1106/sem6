@@ -16,6 +16,7 @@
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}{Lemma}
 \newtheorem{cor}{Corollary}
+\newtheorem{prop}{Proposition}
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}
 \newtheorem{exer}{Exercise}
@@ -307,7 +308,7 @@ The collection $\cal B$ forms the basis for product topology. For all $x \times 
 \begin{rem}
     The collection $\cal B$ is not the topology on $X$ although it is collection of open sets. To see this, $(U_1 \times V_1) \cup (U_2 \times V_2)$ is open in $X \times Y$ when all individual sets are open but it is not contained in $\cal B$ since it cannot be written as product of two open sets. See figure $\ref{fig:1}$.
     \begin{figure}[!ht]
-        \centering{\includegraphics[scale=0.45]{../assests/product_topo.png}}
+        \centering{\includegraphics[scale=0.45]{../assets/product_topo.png}}
         \caption{}
         \label{fig:1}
     \end{figure}
@@ -445,8 +446,288 @@ $$ \bigcup_{i \in I} U_i \cap Y = (\cup_{i \in I} U_i) \cap Y$$
     Let $X$ be an ordered set in the order topology; let $Y$ be a subset of $X$ that is convex in $X$. Then the order topology on $Y$ is the same as topology $Y$ inherits as a subspace of $X$.
 \end{thm}
 \begin{proof}
+    TODO
+\end{proof}
+\section{Closed set and Limit points}
+\begin{defn}[Closed set]
+    A subset $A$ of a topological space $X$ is said to be closed if the set $X - A$ is open.
+\end{defn}
+\begin{thm}
+    Let $X$ be a topological space. Then the following conditions hold:
+    \begin{enumerate}
+        \item $\phi$ and $X$ are closed.
+        \item Arbitrary intersections of closed sets are closed.
+        \item Finite union of closed sets are closed.
+    \end{enumerate}
+\end{thm}
+\begin{proof} \noindent
+    \begin{enumerate}
+        \item This is obvious.
+        \item Let $\{U_\alpha\}_{\alpha \in I}$ is the collection of closed subset of $X$. Let $J \subset I$. We write $(\cap_{\alpha \in J}U_\alpha)^c = \cup_{\alpha \in J}U_\alpha^c$. Since each $U_\alpha$ is closed implies $U_\alpha^c$ is open and so their arbitrary union. This shows that $\cap_{\alpha \in J}U_\alpha$ is closed.
+        \item We write $(\cup_{i=1}^n U_i)^c = \cap_{i = 1}^n U_i^c$. Since each $U_i$ is closed hence $U_i^c$ is open and so their finite intersection. This shows that $\cup_{i=1}^n U_i$ is closed.
+    \end{enumerate}
+\end{proof}
+\begin{thm}
+    Let $Y$ be a subspace of $X$. Then a set $A$ is closed in $Y$ if and only if it equals the intersection of a closed set of $X$ with $Y$.
+\end{thm}
+\begin{proof}
+    TODO
+\end{proof}
+\begin{thm}
+    Let $Y$ be a subspace of $X$. If $A$ is closed in $Y$ and $Y$ is closed in $X$, then $A$ is closed in $X$.
+\end{thm}
+\begin{proof}
+    TODO
+\end{proof}
+
+\subsection{Closure and Interior of a set}
+Given a subset $A$ of a topological space $X$, the {\bf interior} of a $A$ is defined as the union of all open sets contained in $A$, and the {\bf closure} of $A$ is defined as the intersection of all closed sets containing $A$.
+$$ \text{Int}A \subset A \subset \bar{A} $$
+
+\begin{rem}
+    If $A$ is open, then $\text{Int}A = A$ and if $A$ is closed, then $\bar{A} = A$.
+\end{rem}
+
+\begin{thm}
+    Let $Y$ be a subspace of $X$, let $A$ be a subset of $Y$, let $\bar{A}$ denote the closure of $A$ in $X$. Then the closure of $A$ in $Y$ equals $\bar{A} \cap Y$.
+\end{thm}
+\begin{proof}
+    Let denote the closure of $A$ in $Y$ as $cl_Y(A)$ and $\bar{A}$ as closure of $A$ in $X$. Hence, $cl_Y(A) = \cap_{\alpha \in I} (U_X^\alpha \cap Y) = (\cap_{\alpha \in I}U_X^{\alpha}) \cap Y$ where each $U_X^\alpha \cap Y$ contains $A$ and is closed in $Y$ (which implies each $U_X^\alpha$ contains $A$ and is closed in $X$). Since, arbitrary intersection of closed set is closed. $\cap_{\alpha \in I}U_X^{\alpha}$ is $\bar{A}$ (by definition of closure).
+\end{proof}
+
+\begin{thm}[Closure in terms of basis]
+    Let $A$ be a subset of the topological space $X$.
+    \begin{enumerate}
+        \item Then $x \in \bar{A}$ if and only if every open set containing $x$ intersects $A$.
+        \item Supposing the topology of $X$ is given by a basis, then $x \in \bar{A}$ if and only if every basis element $B$ containing $x$ intersects $A$.
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    TODO
+\end{proof}
+\begin{rem}
+    Consider the subspace $Y = (0,1]$ of the real line. The set $A = (0, \frac{1}{2})$ is a subset of $Y$, its closure in $\mathbb{R}$ is the set $[0, \frac{1}{2}]$, and its closure in $Y$ is the set $[0,\frac{1}{2}] \cap Y = (0,\frac{1}{2}]$.
+\end{rem}
+
+\begin{thm}
+    Let $A$ be a subset of the topological space $X$.
+    \begin{enumerate}
+        \item Then $x \in \bar{A}$ if and only if every open set $U$ containing $x$ intersects $A$.
+        \item Supposing the topology of $X$ is given by a basis, then $x \in \bar{A}$ if and only if every basis element $B$ containing $x$ intersect $A$.
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    $(1)$ The contrapositive of the statement is "$x \notin \bar{A}$ if and only if there exists an open set $U$ containing $x$ which does not intersects $A$." This is easy to show. This implies $x \in X - \bar{A}$ and $\bar{A}$ is closed in $X$ hence $U = X - \bar{A}$ is open in $X$ containing $x$.\\
+    Conversely, let $U$ be an open set containing $x$ which does not intersect $A$. $X - U$ is closed set containing $A$ hence by definition of $\bar{A}$, $\bar{A} \subset X - U$. This implies $x \notin \bar{A}$.
+
+    $(2)$ From $(1)$, we just have to show that every open set $U$ containing $x$ intersects $A$ if and only if every basis element $B$ containing $x$ intersects $A$. $(\implies)$ If every open set containing $x$ intersects $A$ then so does every basis element $B$ containing $x$ since basis elements are open. $(\impliedby)$ Every open set containing $x$ has to contain the basis elements containing $x$. Since these basis elements intersects $A$ which implies the open set containing them intersects $A$.
+\end{proof}
+
+\begin{defn}[Limit points]
+    If $A$ is a subset of the topological space $X$ and if $x$ is a point of $X$, then $x$ is a {\bf limit point} of $A$ if every neighbourhood of $x$ intersects $A$ in some point other than $x$ itself.
+    $$ x \in \overline{A-[x]}$$
+\end{defn}
+\begin{thm}
+    Let $A$ be a subset of the topological space $X$, let $A'$ be the set of all limit points of $A$. Then
+    $$ \bar{A} = A \cup A' $$
+\end{thm}
+\begin{proof}
+    TODO
+\end{proof}
+\subsection{Hausdorff Spaces}
+\begin{defn}[Hausdorff Space]
+    A topological space $X$ is called a {\bf Hausdorff space} if for each pair $x_1, x_2$ of distinct points of $X$, there exists neighbourhood $U_1$ and $U_2$ of $x_1$ and $x_2$ respectively in $X$, that are disjoint.
+
+    This is also known as $T$-$2$ separartion axiom.
+\end{defn}
+\begin{thm}
+    Every finite point set in a Hausdorff space $X$ is closed.
+\end{thm}
+\begin{proof}
     
 \end{proof}
 
+\section{Continuous functions}
+\begin{defn}[Continuous function]
+    Let $X$ and $Y$ be topological spaces. A function $f : X \to Y$ is said to be continous if for each open subset $V$ of $Y$, the set $f^{-1}(V)$ is an open set of $X$.    
+\end{defn}
+If the topology on the range space $Y$ is given by the basis elements $\cal B$ then it is enough to show that the {\bf inverse image of the basis element is open}. Since open set $V$ in $Y$ is given by $ V = B_1 \cup B_2 \cup \dots$ and 
+$$ f^{-1}(V) = f^{-1}(B_1) \cup f^{-1}(B_2) \cup \dots $$
+each element of RHS is open hence their arbitrary union is also open.
+
+If the topology on $Y$ is given by subbasis $\cal S$ then it is enough to show that {\bf inverse image of each element of subbasis is open}. Since an element $B$ of basis can be written as $S_1 \cap S_2 \cap \dots \cap S_n$.
+$$ f^{-1}(B) = f^{-1}(S_1) \cap f^{-1}(S_2) \cap \dots \cap f^{-1}(S_n)$$
+each element of RHS is open hence $f^{-1}(B)$ is open then from above paragraph, it implies that $f$ is continuous. 
+
+\begin{exer}
+    Prove that the $\varepsilon-\delta$ defintion of continuity for real-valued functions is equivalent to the above definition of continuity.
+\end{exer}
+\begin{sol*}
+    ($\implies$) $\varepsilon-\delta$ implies the open ball definition.\\
+    Let $f: \bb R \to \bb R$ be the continuous function hence for given $\varepsilon > 0$ there exists a $\delta > 0$ such that for some $x_0 \in \bb R$, $|f(x) - f(x_0)| < \varepsilon$ whenever $|x-x_0| < \delta$. Suppose $x \in \bb R$ such that $f(x) \in (f(x_0) - \varepsilon, f(x_0) + \varepsilon)$. This implies 
+    $$ x \in f^{-1}(f(x_0) - \varepsilon, f(x_0) + \varepsilon) $$
+    Then by $\varepsilon-\delta$ defintion of continuity, $x \in (x_0-\delta, x_0+\delta)$. This means $f^{-1}(f(x_0) - \varepsilon, f(x_0) + \varepsilon) \subset (x_0-\delta, x_0+\delta)$. For other way if $x \in (x_0-\delta, x_0+\delta)$ then by $\varepsilon-\delta$ defintion of continuity, $f(x) \in (f(x_0) - \varepsilon, f(x_0) + \varepsilon)$. Hence, $(x_0-\delta, x_0+\delta) \subset f^{-1}(f(x_0) - \varepsilon, f(x_0) + \varepsilon)$. 
+
+    This equality implies that inverse image of the open set in range space $\bb R$ is open in domain space $\bb R$.
+
+    $(\impliedby)$ If $f: \bb R \to \bb R$ is continuous then if $V$ is open in range space $\bb R$ then $U = f^{-1}(V)$ is open in domain space $\bb R$. For some $x_0 \in \bb R$ and given $\varepsilon > 0$, $V = (f(x_0)-\varepsilon, f(x_0)+\varepsilon)$ is open in $\bb R$. Since $U$ contians $x_0$, there exists a basis element $(a,b) \in \bb R$ such that $x_0 \in (a,b) \subset U = f^{-1}(V)$. We choose $\delta > 0$ as $\min\{x_0-a, x_0-b\}$ then $(x_0 - \delta, x_0+\delta) \subset U$ and whenever $|x-x_0| < \delta$ we have $|f(x) - f(x_0)| < \varepsilon$.
+\end{sol*}
+\begin{eg}
+    If $f: \bb R \to \bb R_l$ is identity function then $f$ is not continuous since any open set $[a,b)$ (basis element of $\bb R_l$) containing $x$, its inverse image is $[a,b)$ which is not open in $\bb R$.
+\end{eg}
+\begin{eg}
+    If $g: \bb R_l \to \bb R$ is identity function then $g$ is continuous since any open set $(a,b)$ containing $x$, its inverse image is $(a,b)$ which is open in $\bb R_l$. ($(a,b) = \cup_{n=1}^\infty[a+\frac{1}{n},b)$).
+\end{eg}
+\begin{thm}
+    Let $X$ and $Y$ be topological spaces; let $f:X \to Y$. Then the following are equivalent:
+    \begin{enumerate}
+        \item $f$ is continuous.
+        \item For every subset $A$ of $X$, one has $f(\bar{A})\subset \overline{f(A)}$.
+        \item For every closed set $B$ of $Y$, the set $f^{-1}(B)$ is closed in $X$.
+        \item For each $x\in X$ and each neighbourhood $V$ of $f(x)$, there is a neighbourhood $U$ of $x$ such that $f(U) \subset V$.
+    \end{enumerate}   
+    If the condition in $(4)$ holds for the point $x$ of $X$, we say that $f$ is continous at the point $x$.
+\end{thm}
+\begin{proof}
+    $(1 \implies 2)$ TODO
+\end{proof}
+
+\subsection{Homeomorphism}
+\begin{defn}[Homeomorphism]
+    Let $X$ and $Y$ be the topological spaces; let $f : X \to Y$ be a bijection. If both the function $f$ and the inverse function $f^{-1}: Y \to X$ are continuous, then $f$ is called homeomorphism.
+\end{defn}
+Another way to define a homeomorphism is to say that it is a bijective correspondence $f: X \to Y$ such that $f(U)$ is open if and only if $U$ is open.
+\begin{defn}[Topological properties]
+    Any properties of $X$ that are entirely expressed in terms of the topology of $X$ (i.e. in terms of open sets of $X$) yields, via the correspondence $f$, the corresponding property for the space $Y$, called topological properties.
+\end{defn}
+\begin{defn}[Topological imbedding]
+    Suppose that $f : X \to Y$ is an injective continuous map, where $X$ and $Y$ are topological spaces. Let $Z$ be the image set $f(X)$, considered as a subspace of $Y$; then the function $f' : X \to Z$ obtained by restricting the range of $f$, is bijective. If $f'$ is an homeomorphism of $X$ with $Z$, then map $f : X \to Y$ is  called a {\bf topological imbedding} of $X$ in $Y$.
+\end{defn}
+\begin{thm}[Constructing continuous functions]
+    TODO
+\end{thm}
+\begin{thm}[Pasting lemma]
+    TODO
+\end{thm}
+
+\subsection{Quotient Topology}
+\begin{defn}[Quotient map]
+    Let $X$ and $Y$ be topological spaces; let $p : X \to Y$ be a surjective map. The map $p$ is said to be a {\bf quotient map} provided a subset $U$ of $Y$ is open in $Y$ if and only if $p^{-1}(U)$ is open in $X$.
+\end{defn}
+\begin{defn}[Quotient topology]
+    If $X$ is a space and $A$ is a set and if $p : X \to A$ is a surjective map, then there exists exactly one topology $\cal T$ on $A$ relative to which $p$ is a quotient map; it is called the {\bf quotient topology} induced by $p$.
+\end{defn}
+
+The topology $\cal T$ is consists of those subsets $U$ of $A$ such that $p^{-1}(U)$ is open in $X$.
+
+\begin{defn}[Quotient space]
+    Let $X$ be a topological space, and let $X^*$ be a partition of $X$ into disjoint subsets whose union is $X$. Let $p : X \to X^*$ be the surjective map that carries each point of $X$ to the element of $X^*$ containing it. In the quotient topology induced by $p$, the space $X^*$ is called a {\bf quotient space} of $X$.
+\end{defn}
+A subset $U$ of $X^*$ is a collection of equivalence classes, and the set $p^{-1}(U)$ is the union of the equivalence classes belonging to $U$. Thus, open set of $X^*$ is a collection of equivalence classes whose union is an open set of $X$.
+
+\begin{thm}
+    Let $p : X \to Y$ be a quotient map; let $A$ be a subspace of $X$ that is saturated with respect to $p$; let $q : A \to p(A)$ be the map obtained by restricting $p$.
+    \begin{enumerate}
+        \item If $A$ is either open or closed in $X$, then $q$ is a quotient map.
+        \item If $p$ is either an open map or a closed map, then $q$ is a quotient map.
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    TODO.
+\end{proof}
+
+\subsection{Topological Groups}
+\begin{defn}[Topological Group]
+    A {\it topological group} $(G,\cdot,\cal T)$ consists of group $(G,\cdot)$ and a topology $\cal T$ on $G$ for which the multiplication map
+    $$
+    \begin{aligned}
+        G \times G &\to G \\
+        (g,h) &\mapsto g \cdot h = gh
+    \end{aligned} 
+    $$
+    and the inversion map
+    $$
+    \begin{aligned}
+        G &\to G \\
+        g &\mapsto g^{-1}
+    \end{aligned} 
+    $$
+    are continuous. We call $\cal T$ to be {\it group topology} on $G$. We can combine these two conditions as:
+    $$
+    \begin{aligned}
+        \kappa \colon G \times G &\to G \\
+        (g,h) &\mapsto g^{-1}h
+    \end{aligned} 
+    $$
+    If $G$ is a topological group then $\kappa$ is continuous.
+\end{defn}
+Conversely, if $\kappa$ is continuous, then the maps $g \mapsto g^{-1} = \kappa(g,e)$ and $(g,h) \mapsto gh = \kappa(\kappa(g,e),h)$ are continous (composition of continuous maps).
+
+\begin{thm}
+    Suppose that $G$ is a topological group. For every $a \in G$, the {\it right tranlation map}
+    $$ \rho_a(g) = ga$$
+    the {\it left tranlation map}
+    $$ \lambda_a(g) = ag$$
+    and the {\it conjugation map}
+    $$ \gamma_a(g) = aga^{-1}$$
+    are homeomorphisms of $G$ onto itself, with inverses $\lambda_{a^{-1}}$, $\rho_{a^{-1}}$, $\gamma_{a^{-1}}$, respectively.
+\end{thm}
+\begin{proof}
+    We will show it from $\rho_a$ rest all will follow the same.\\
+    Injectivity is trivial from group operation right cancellation. For surjectivity, let $g \in G$ then there exists $ga^{-1}\in G$ such that $\rho_a(ga^{-1}) = g$. Hence, it is surjective.
+
+    Let $U \in G$ be an open subset. 
+    $$ (\rho_a)^{-1}(U) = \{g \in G \colon \rho_a(g) \in U\} = Ua^{-1}$$
+    Since, $U = Ua^{-1}a$ is open in $G$ and multiplication map $G \times G \to G$ is continuous implies that inverse image of $Ua^{-1}a \in G$ which is $(Ua^{-1},a) \in G \times G$ is open. Hence, $Ua^{-1}$ is open in $G$ (product topology). This shows that $\rho_a$ is continuous and since $a$ is arbitrary, we can choose $(\rho_a)^{-1}$ as $\rho_{a^{-1}}$(inverse map is also continuous then). This also shows that $\rho_a$ is homeomorphism.
+
+    Similarly, for other two maps, it can be shown that they are homeomorphism from $G \to G$.
+\end{proof}
+
+\begin{thm}
+    A topological group $G$ is Hausdorff if and only if some singleton $\{a\} \subset G$ is closed.
+\end{thm}
+\begin{proof}
+    $(\implies)$ Assume $G$ is Hausdorff, to show that $\{a\}^c$ is open. For all $b(\neq a) \in G$, there exists open nbd $U_b \in G$ such that $b \in U_b$. Therefore, $\bigcup\limits_{\substack{b\in G \\ b \neq a}} U_b = G\backslash\{a\} = \{a\}^c$ which is open.
+
+    $(\impliedby)$ Assume $\{a\} \in G$ is closed. Take the inverse image of $\{a\}$ under the continuous map $(g,h) \mapsto g^{-1}ha$. $g^{-1}ha = a \implies g = h$. Hence, the inverse image is $\Delta = \{(g,g) \colon g \in G\}$ which is closed in $G \times G$ ($\because$ map is continuous) which means $G$ is Hausdorff. ($\Delta$ is closed in $G \times G$ implies $G$ is Hausdorff; $\Delta^c$ is open then the open nbd for each point $(x,y), x \neq y$ is basis elements of $G \times G$ and intersection of those basis elements has to be empty otherwise $(z,z) \in \Delta^c$, $z$ in intersection, which is not possible).
+\end{proof}
+
+\subsection{Quotients}
+
+Suppose $H$ is a subgroup of a topological group $G$. We endow the set $G/H$ of left cosets with the quotient topology w.r.t natural map
+$$ p \colon G \to G/H, \qquad g \mapsto gH.$$
+Thus a subset of $G/H$ is open if and only if its $p$-preimage is open.
+
+\begin{prop}
+    Let $G$ be a topological group and let $H$ be a subgroup. Then the quotient map
+    $$ p \colon G \to G/H$$
+    is open. The quotient $G/H$ is Hausdorff if and only if $H$ is closed in $G$.
+\end{prop}
+\begin{proof}
+    TODO
+\end{proof}
+
+\subsection{Local Compactness}
+\begin{defn}[Locally compact]
+    A space $X$ is said to be locally compact at $x$ if there is some compact subspace $C_x$ of $X$ and an open set $U_x$ of $X$ such that $x \in U_x \subset C_x$. If $X$ is locally compact at each of its points, $X$ is said simply to be locally compact.
+\end{defn}
+\begin{thm}
+    Let $X$ be a space. Then $X$ is locally compact Hausdorff if and only if there exists a space $Y$ satisfying the following conditions:
+    \begin{enumerate}
+        \item $X$ is a subspace of $Y$.
+        \item The set $Y-X$ consists of a single point.
+        \item $Y$ is a compact Hausdorff space.
+    \end{enumerate}
+    If $Y$ and $Y'$ are two spaces satisfying these conditions, then there is a homeomorphism of $Y$ with $Y'$ that equals the identity map on $X$.
+\end{thm}
+\begin{proof}
+    First, check the uniqueness. Let $Y$ and $Y'$ be two spaces satisfying these conditions. Define $h:Y \to Y'$. $h$ is identity on $X$ and it maps unique point of $Y-X$ to unique point of $Y'-X$. It is injective, surjective. For continuity, if $U \subset X \subset Y'$ then $h^{-1}(U)$ is open in $X \subset Y$(identity). For $U = \{\infty\} \subset Y'$ which is closed, $h^{-1}(U) = \{\infty'\} \subset Y$ which is closed in $Y$ since $Y$ is Hausdorff (singletons are closed in Hausdorff spaces). By symmetry, $h^{-1}$ is also continuous.
+
+    Now, we assume that $X$ is locally compact and Hausdorff and construct $Y = X \cup \{\infty\}$ where $\infty$ is a symbol for the extra element. The topology on $Y$ is given by $(1)$ open sets of $X$ $(2)$ all sets of the form $Y - C$ where $C$ is a compact subspace of $X$. We need to check if this collection form a topology or not. $(1)$ $\phi$ is in $X$ implies it is in the collection. $(2)$ since $\phi$ is compact in $X$ hence $Y - \phi = Y$ is in the collection.  
+\end{proof}
+
+\begin{defn}[One-point compactification]
+    If $Y$ is compact Hausdorff space and $X$ is a proper subspace of $Y$ whose closure equals $Y$, then $Y$ is said to be a {\it compactification} of $X$. If $Y-X$ equals a single point, then $Y$ is called the {\it one-point compactification} of $X$.
+\end{defn}
 
 \end{document}

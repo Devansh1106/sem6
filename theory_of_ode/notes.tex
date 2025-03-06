@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{mathrsfs}
+\usepackage{cancel}
 \theoremstyle{plain}
 
 \newtheorem*{thm*}{Theorem}
@@ -18,6 +19,7 @@
 \newtheorem{eg}{Example}
 \newtheorem{rem}{Remark}
 \newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\cal}[1]{\mathcal{#1}}
 \newcommand{\pd}{\partial}
 \usepackage{lineno}
 
@@ -372,7 +374,7 @@ Thus the linear differential operator is given by $ L = p_0(t)\frac{d}{dt} + p_1
 $$ \dot{y} + p(t)y = q(t) $$
 we can find a function $h(t)$ such that $ \dot{h}(t) = \dot{y} + p(t)y$ then we $\dot{h}(t) = q(t)$ which can be integrated easily to find the solution. Let a differentiable function $\mu(t)$ then $d(\mu y) /dt = \mu \dot{y} + \dot{\mu}y$. Multiplying both sides by $\mu(t)$ in main non-homogeneous equation and then comparing with the derivative of $\mu(t)$, we get $\dot{\mu}(t) = \mu(t)p(t)$. 
 \begin{figure}[!ht]
-    \centerline{\includegraphics[scale=.30]{../assests/integrating_fac.png}}
+    \centerline{\includegraphics[scale=.30]{../assets/integrating_fac.png}}
     \caption{why $\mu$ has to be positive? Check this.}
     \label{fig1}
 \end{figure}
@@ -527,6 +529,95 @@ $$ Ly := \ddot{y} + p\dot{y} + qy = e^{at}$$
 \paragraph{\bf Ques 1} In linear equations with constant coefficient, how is $\dot{y} \propto y$?
 \paragraph{\bf Ques 2} If we have the equation $\dot{y} + p(t)y = q(t)$ and the equation $\mu(t)\dot{y} + \mu(t)p(t)y = \mu(t)q(t)$ then how to show that they will have the same solution set?
 \paragraph{\bf Ques 3} Author mentioned that if $\mu(t) > 0$ then both above equations will have the same solution. But how to show this?
+
+{\large \part{\centering \\ General theory of IVP}}
+\begin{lem}[Basic lemma]
+    Let $D$ be an open connected set in $\bb R^2$ and $(t_0, y_0) \in D$. Assume that $f$ is continous in $D$. If $y$ is a solution to the IVP in an interval $(a,b)$ containing $t_0$, then $y$ satisfies the integral equation
+    $$ y(t) = y_0 + \int_{t_0}^{t} f(s,y(s))ds,~t \in (a,b)$$
+    Conversely, if $y$ is a continuous function defined on $(a,b)$ which satifies the integral equation for all $t \in (a,b)$, then $y \in C^1(a,b)$ and satisfies the IVP.
+\end{lem}
+\begin{proof}
+    $(\implies)$ The IVP is given by
+    $$ \dot{y}(t) = f(t, y(t))$$
+    Let $y$ be the solution to the above IVP since $f$ is continuous in $D$ hence its integrable and integrating it will give
+    $$ y(t) = y_0 + \int_{t_0}^{t} f(s,y(s)) ds$$
+    Therefore, the same $y$ which satisfies the IVP satisfies the integral equation.
+    $(\impliedby)$ Let $y$ is the continuous function defined on $(a,b)$ satisfying the integral equation
+    $$ y(t) - y_0 = \int_{t_0}^{t} f(s, y(s))ds$$
+    Then by fundamental theorem of calculus, RHS is differentiable and hence $y(t)$ is differentiable i.e. belongs to $C^1(a,b)$ and 
+    $$ \dot{y(t)} = \frac{d}{dt}\int_{t_0}^{t}f(s,y(s))ds$$
+    By Leibniz rule,
+
+    \begin{align*}
+        \dot{y} &= f(t,y(t)) \frac{dt}{dt} - f(t_0, y(t_0))\cancelto{0}{\frac{dt_0}{dt}} \\
+        \dot{y} &= f(t,y(t))
+    \end{align*}
+    Putting $t = t_0$ will cancel out the integral and hence initial condition is also satisfied.
+\end{proof}
+
+\begin{lem}[Gronwall's Inequality]
+    Suppose that $p$ and $q$ are continuous real valued functions defined on $[a,b]$ with $q(t) \geq 0$ on $[a,b]$. Assume $p,q$ satisfy
+    $$ p(t) \leq C + k\int_{t_0}^{t} q(s)p(s)ds,$$
+    for all $t \in [a,b]$, where $t_0 \in [a,b]$ is fixed and $C,k$ are constants with $k \geq 0$. Then,
+    $$ p(t) \leq C\exp\left(k\int_{t_0}^{t}q(s) ds\right)$$
+    for all $t \in [a,b]$.
+\end{lem}
+\begin{proof}
+    Let $F(t) := C + k\int_{t_0}^{t} q(s)p(s) ds$ then we can say $p(t) \leq F(t)(*)$. Since $p(s)$ and $q(s)$ are continuous $\implies$ $F(t) - C = k\int_{t_0}^{t}q(s)p(s)ds$ hence by FTC, RHS is differentiable and $F'(t) = kq(t)p(t)$. By $(*)$, we have $F'(t) \leq kq(t)F(t)$ since $k,q(s)$ are non-negative.
+    
+    Multiplting by integrating factor $\exp\left(-\int_{t_0}^{t} kq(s)ds\right)$. The equation becomes 
+    \begin{align*}
+        F'(t)\exp\left(-\int_{t_0}^{t} kq(s)ds\right) - kq(t)F(t)\exp\left(-\int_{t_0}^{t} kq(s)ds\right) &\leq 0 \\
+        \frac{d}{dt}F(t)\exp\left(-\int_{t_0}^{t} kq(s)ds\right) &\leq 0 \\
+        \int_{t_0}^{t}\frac{d}{dt}F(t)\exp\left(-\int_{t_0}^{t} kq(s)ds\right) &\leq 0 \\
+        F(t)\exp\left(-\int_{t_0}^{t} kq(s)ds\right) - F(t_0) &\leq 0 \\
+        p(t) \leq F(t) \leq F(t_0)\exp\left(\int_{t_0}^{t} kq(s)ds\right) \text{ (from *)} \\
+        p(t) \leq C\exp\left(\int_{t_0}^{t} kq(s)ds\right)
+    \end{align*}
+\end{proof}
+
+\begin{thm}[Uniqueness Theorem]
+    Let $a,b$ be positive real numbers. Suppose that $f = f(t,y)$ is continuous on the rectangle $\cal R = \{(t,y) \mid |t-t_0| \leq a, |y-y_0| \leq b\}$ and Lipschitz continuous with respect to $y$ in $\cal R$. Then, the IVP has at most one solution.
+\end{thm}
+\begin{proof}
+    Lets write the IVP in the form of IE:
+    $$ y(t) = y(t_0) + \int_{t_0}^{t} f(s, y(s)) ds$$ and let the two solutions to the IVP are $y(t)$ and $z(t)$ defined on $[c,d]$ containing $t_0$ and contained in $[t_0 - a, t_0 + a]$, then by basic lemma, they both will satisfy the above IE. Taking the difference of corresponding IEs
+    $$ y(t) - z(t) = y(t_0) - z(t_0) + \int_{t_0}^{t} f(s, y(s)) - f(s, z(s)) ds$$
+    Since $f$ is Lipschitz continuous in $y$ hence we have
+    $$  |y(t) - z(t)| \leq \cancelto{0}{y(t_0) - z(t_0)} + \int_{t_0}^{t} L (y(s) - z(s)) ds $$
+    By Gronwall's inequality with $C = 0$, $p(s) = y(s) - z(s)$, $q(s) = 1 \geq 0$ and $k=L \geq 0$
+    $$ |y(t) - z(t)| \leq 0$$
+    Hence, both solutions are same.
+\end{proof}
+
+\begin{thm}[Picard's Existence Theorem]
+    Let $D$ be an open connected set in $\bb R^2$. Assume $f:D \to \bb R$, satisfies the following conditions:
+    \begin{enumerate}
+        \item $f(t,y)$ is continuous on $D$.
+        \item $f(t,y)$ is Lipschitz continuous with respect to $y$ on $D$ with Lipschitz constant $\alpha > 0$.
+    \end{enumerate}
+    Let $(t_0, y_0) \in D$ and $a$ and $b$ be positive constants such that the rectangle $\cal R$ defined by
+    $$ \cal R = \{(t,y) : |t-t_0| \leq a, |y-y_0| \leq b\}$$
+    is a subset of $D$. Let $M = \max\limits_{(t,y) \in \cal R} |f(t,y)|$ and $h = \min\left(a,\frac{b}{M}\right)$. Then, IVP has a unique solution in the interval $|t-t_0| \leq h$.
+\end{thm}
+
+\begin{proof}
+    TODO
+\end{proof}
+\begin{defn}[$\varepsilon-$ approximate solution]
+    In the IVP, where $f(t,y)$ is a real valued continous function defined on a domain $D \subset \bb R^2$. Let $\varepsilon > 0$. An $\varepsilon$-approximate solution of IVP on an interval $I = [t_0 - a, t_0 + a], a > 0$, is a function $y$ defined on $I$ such that
+    \begin{enumerate}
+        \item $(t,y(t)) \in D$, for all $t \in I$.
+        \item $y \in C^1$ on $I$ except possibly for a finite set $S \subset I$, that is $y \in C^1(I\backslash S)$ and $\dot{y}(t)$ may have simple discontinuities i.e. jump type discontinuities, on $I$.
+        \item $|\dot(y)(t) - f(t,y(t))| \leq \varepsilon$ for $t \in I \backslash S$.
+    \end{enumerate} 
+    A function $y \in C(I)$ satisfying $(2)$ is said to have piecewise-continuous derivative on $I$ and this is denoted by $y \in C^1_p(I)$.
+\end{defn}
+
+% \begin{
+
+
+
 
 
 \end{document}
