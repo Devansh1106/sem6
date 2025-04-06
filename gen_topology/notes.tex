@@ -1,28 +1,32 @@
 \documentclass[12pt,reqno]{amsart}
 
 \usepackage{graphicx}
-
+% \usepackage{mdframed}
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{mathrsfs}
 \setlength{\parskip}{0.5\baselineskip}%
 \setlength{\parindent}{20pt}
-\theoremstyle{plain}
+\renewcommand{\qedsymbol}{$\blacksquare$}
 
+% theorem style changed
+\theoremstyle{plain}
 \newtheorem*{thm*}{Theorem}
 %% this allows for theorems which are not automatically numbered
-
-\renewcommand{\qedsymbol}{$\blacksquare$}
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}{Lemma}
 \newtheorem{cor}{Corollary}
 \newtheorem{prop}{Proposition}
+
+% theorem style changed
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}
 \newtheorem{exer}{Exercise}
 \newtheorem{eg}{Example}
 \newtheorem{rem}{Remark}
 \newtheorem*{sol*}{Solution}
+
+
 \newcommand{\bb}[1]{\mathbb{#1}}
 \newcommand{\cal}[1]{\mathcal{#1}}
 \usepackage{lineno}
@@ -607,9 +611,13 @@ Another way to define a homeomorphism is to say that it is a bijective correspon
     TODO
 \end{thm}
 \begin{thm}[Pasting lemma]
-    TODO
+    Let $X = A \cup B$, where $A$ and $B$ are closed in $X$. Let $f \colon A \to Y$ and $g \colon B \to Y$ be continuous. If $f(x) = g(x)$ for every $x \in A \cap B$, then $f$ and $g$ combine to give a continuous function $h \colon X \to Y$, defined by setting $h(x) = f(x)$ if $x \in A$ and $h(x) = g(x)$ if $x \in B$.
 \end{thm}
-
+\begin{proof}
+    Let $C$ be a closed set in $Y$. Then
+    $$ h^{-1}(C) = f^{-1}(C) \cup g^{-1}(C).$$
+    Since, $f$ and $g$ are continuous, $h^{-1}(C)$ is union of two closed set hence it is closed. Therefore, $h$ is continuous.
+\end{proof}
 \subsection{Quotient Topology}
 \begin{defn}[Quotient map]
     Let $X$ and $Y$ be topological spaces; let $p : X \to Y$ be a surjective map. The map $p$ is said to be a {\bf quotient map} provided a subset $U$ of $Y$ is open in $Y$ if and only if $p^{-1}(U)$ is open in $X$.
@@ -706,6 +714,71 @@ Thus a subset of $G/H$ is open if and only if its $p$-preimage is open.
 \begin{proof}
     TODO
 \end{proof}
+\section{Compactness}
+\begin{defn}[Covering]
+    A collection $\cal A$ of subsets of a space $X$ is said to cover $X$, or to be a {\it covering} of $X$, if the union of the elements of $\cal A$ is equal to $X$. It is called {\it open covering} of $X$ if its elements are open subsets of $X$. 
+\end{defn}
+\begin{defn}[Compact space]
+    A space $X$ is said to be {\it compact} if every open covering $\cal A$ of $X$ contains a finite subcollection that also covers $X$.
+\end{defn}
+\begin{rem}
+    If $Y$ is a subspace of $X$, a collection $\cal A$ of subsets of $X$ is said to cover $Y$ if the union of its elements {\bf contains} $Y$.
+\end{rem}
+\begin{lem}
+    Let $Y$ be a subspace of $X$. Then $Y$ is compact if only if every covering of $Y$ by sets open in $X$ contains a finite subcollection covering $Y$.
+\end{lem}
+\begin{proof}
+    $(\implies)$ Assume $Y$ is compact and $\{A_\alpha\}_{\alpha \in I}$ be the cover of $Y$ by open sets of $X$. Then the collection $\{A_\alpha \cap Y\}_{\alpha \in I}$ of open sets of $Y$ covers $Y$. Since $Y$ is compact, the finite subcover of $Y$ by open sets of $Y$ is $\{A_1\cap Y, \dots, A_n \cap Y\}$. Hence $\{A_1, \dots, A_n\}$ is the finite subcover of $Y$ by open sets of $X$. 
+
+    \noindent $(\impliedby)$ Let $\{A_\alpha\}_{\alpha \in I}$ be the collection of open sets in $X$ that covers $Y$. Then $\{A_\alpha \cap Y\}_{\alpha \in I}$ is a covering of $Y$ by open sets of $Y$. By hypothesis, there exists a finite subcovering of $Y$ by open sets of $X$, $\{A_1, \dots, A_n\}$. Hence, $\{A_1 \cap Y, \dots, A_n \cap Y\}$ is finite subcover of $Y$ by open sets in $Y$. Therefore, $Y$ is compact.
+\end{proof}
+
+% \begin{
+
+
+
+\subsection{Limit Point Compactness}
+\begin{defn}[Limit point compact]
+    A space is said to be {\it limit point compact} if every infinite subset of $X$ has a limit point.
+
+    This is also referred as {\it Frechet compactness} or {\it Bolzano-Weierstrass property}.
+\end{defn}
+\begin{thm} \label{23}
+    Compactness implies limit point compactness, but not conversely.
+\end{thm}
+\begin{proof}
+    Let $X$ be compact space. We need to show that every infinite subset $A \subset X$ has a limit point. We will prove contrapositive: If $A$ has no limit point then $A$ must be finite.
+    
+    Since $A$ does not have limit point implies $A$ contains all its limit points. Therefore, $A$ is closed. For any $a \in A$, any neighbourhood $U$ of $a$ intersect $A$ at point $a$ only. Hence $\{X - A, \{U_a\}_{a\in A}\}$ is an open cover of $X$ and since $X$ is compact, it has finite subcover, say $\{X - A, U_1, U_2, \dots, U_n\}$. Since, $X - A$ does not intersect $A$ and each $U_a$ cover only $a \in A$ hence $A$ has to be finite. 
+\end{proof}
+\begin{eg}[Counter example of converse statement]
+    Let $Y$ consist of two points, give $Y$ the trivial topology. Then the space $ X = \bb Z_+ \times Y$ is limit point compact, for every non empty subset of $X$ has a limit point. It is not compact since the cover $\{U_n\}_{n \in \bb Z_+} = \{n\} \times \{a,b\}$ does not have any finite subcover.
+\end{eg}
+
+\subsection{Sequential Compactness}
+\begin{defn}[Sequential Compactness]
+    Let $X$ be topological space. If $(x_n)$ is a sequence of point of $X$, and if $n_1 < n_2 < \dots < n_i < \dots $ is an increasing sequence of positive integers, then the sequence $(y_i)$ defined by setting $y_i = x_n$ is called a subsequence of the sequence $(x_n)$. The space $X$ is said to be {\bf sequentially compact} if every sequence of points of $X$ has a convergent subsequence.
+\end{defn}
+\begin{thm}
+    Let $X$ be a metrizable space. Then the following are equivalent:
+    \begin{enumerate}
+        \item $X$ is compact.
+        \item $X$ is limit point compact.
+        \item $X$ is sequentially compact.
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    $(1 \implies 2)$ is already done in previous theorem \ref{23}. \\
+    $(2 \implies 3)$ Assume $X$ is limit point compact. Let $(x_n)$ be a sequence in $X$, consider the set $A = \{x_n \mid n \in \bb Z_+\}$. 
+    
+    \noindent \underline{Case 1:} If $A$ is finite then there exists a $N$ and $x \in X$ such that for all $n > N$, $x_n = x$. Hence, the subsequence can be constant sequence and that converges trivially.
+
+    \noindent \underline{Case 2:} If $A$ is infinite then it has a limit point (since $X$ is limit point compact). Construct a subsequence as follows: 
+    $$ x_1 = B(x,1), \qquad x_{n_k} = B(x,1/n_k)$$
+    for $1 < n_k < n_{k+1} < \dots$ and such a $x_{n_k}$ exists as $x$ is the limit point hence any neighbourhood around it contains infinite many point of $A$. This subsequence converges to $x$. Therefore, $X$ is sequentially compact. \\
+    $(3 \implies 1)$ TODO
+\end{proof}
+
 
 \subsection{Local Compactness}
 \begin{defn}[Locally compact]
@@ -723,11 +796,296 @@ Thus a subset of $G/H$ is open if and only if its $p$-preimage is open.
 \begin{proof}
     First, check the uniqueness. Let $Y$ and $Y'$ be two spaces satisfying these conditions. Define $h:Y \to Y'$. $h$ is identity on $X$ and it maps unique point of $Y-X$ to unique point of $Y'-X$. It is injective, surjective. For continuity, if $U \subset X \subset Y'$ then $h^{-1}(U)$ is open in $X \subset Y$(identity). For $U = \{\infty\} \subset Y'$ which is closed, $h^{-1}(U) = \{\infty'\} \subset Y$ which is closed in $Y$ since $Y$ is Hausdorff (singletons are closed in Hausdorff spaces). By symmetry, $h^{-1}$ is also continuous.
 
-    Now, we assume that $X$ is locally compact and Hausdorff and construct $Y = X \cup \{\infty\}$ where $\infty$ is a symbol for the extra element. The topology on $Y$ is given by $(1)$ open sets of $X$ $(2)$ all sets of the form $Y - C$ where $C$ is a compact subspace of $X$. We need to check if this collection form a topology or not. $(1)$ $\phi$ is in $X$ implies it is in the collection. $(2)$ since $\phi$ is compact in $X$ hence $Y - \phi = Y$ is in the collection.  
+    \noindent$(\implies)$ Now, we assume that $X$ is locally compact and Hausdorff and construct $Y = X \cup \{\infty\}$ where $\infty$ is a symbol for the extra element. The topology $\cal T_Y$ on $Y$ is given by $(1)$ open sets of $X$ $(2)$ all sets of the form $Y - C$ where $C$ is a compact subspace of $X$. We need to check if this collection forms a topology or not. 
+    \begin{enumerate}
+        \item $(1)$ $\phi$ is in $X$ implies it is in the collection. $(2)$ since $\phi$ is compact in $X$ hence $Y - \phi = Y$ is in the collection. 
+        \item  For arbitrary collection of open sets, there are three choices: $(1)$ $\cup U_\alpha$, where $U_\alpha$ is open in $X$ for each $\alpha$, should lie in $\cal T_Y$ (trivially lies in $\cal T_Y$). $(2)$ $\cup\{Y - C_\beta\}$ should lie in $\cal T_Y$ $\therefore \cup\{Y - C_\beta\} = \{Y - \cap C_\beta\} = \{Y - C'\} \in \cal T_Y$ ({\bf since arbitrary intersection of compact set is compact}).  $(3)$ arbitrary collection of open sets of type $(\cup U_\alpha) \bigcup (\cup \{Y - C_\beta\})$ should lie in $\cal T_Y$ therefore, 
+        $$ (\cup U_\alpha) \bigcup (\cup \{Y - C_\beta\}) = U \bigcup \{Y - C'\} = U \bigcup \{X - C'\}$$ 
+        is open in $X$ since $C'$ is compact in $X$ hence closed ($X$ is Hausdorff), $X - C'$ is open and $U$ is open in $X$. Hence this is of type $(1)$ set implies lies in $\cal T_Y$.
+        \item For finite intersection of open sets: $(a)$ trivial for open sets of type $(1)$ which are open in $X$. $(b)$ $\cap_{i=1}^n \{Y - C_i\} = Y - \cup_{i=1}^n C_i = Y - C'$ is of type $(2)$ since {\bf finite union of compact sets is finite}. $(c)$ $U_1 \cap \{Y - C\} = U_1 \cap \{X - C\}$ is open in $X$ hence its open in $Y$ (since $C$ is compact and hence closed in $X$). Given collection is a topology on $Y$.
+    \end{enumerate}
+    Now, we show that {\bf $X$ is a subspace of $Y$}. For this, we need to show that any open set of $X$ can be written as intersection of open set of $Y$ and $X$. This can be achieved by taking type $(1)$ sets and their intersection with $X$. Other direction, intersection of any open set of $Y$ with $X$ is open in $X$. If open set of $Y$ is of type $(1)$ then it is trivially open in $X$, if it is type $(2)$ then $\{Y - C\} \cap X = \{X - C\} \cap X = X - C$ which is open in $X$ since $C$ is compact in $X$ (Hausdorff).
+
+    \noindent $Y - X$ is singleton by construction.
+
+    \noindent {\bf To show $Y$ is compact and Hausdorff.} Let $\{A_\alpha\}_{\alpha \in I}$ is an open cover of $Y$. Then $\{A_\alpha \cap X\}_{\alpha\in I}$ is an open cover of $X$ which implies it cover $C \subset X$ which is compact in $X$. Therefore, $\{Y - C, \{A_\alpha \cap X\}_{\alpha \in I}\}$ is an open cover of $Y$. There will exist a $Y - C$ since $\{\infty\}$ is not contained in $X$. Since $C$ is compact there exists a finite subcover of $C$ which implies $\{\{A_1 \cap X, A_2 \cap X, \dots, A_n \cap X\}, Y - C\}$ is a finite cover of $Y$. Hence, $Y$ is compact.
+
+    \noindent For any $x,y \in Y$, if both of lie in $X$ then there exists disjoint open sets in $X$ containing them since $X$ is Hausdorff. If one of them is $\{\infty\}$ then take compact set $C_x$ containing $x$ which contains an neighbourhood of $x$ and $Y - C_x$ is open in $Y$ containing the other point, both are disjoint. Hence, $Y$ is Hausdorff.
+
+    \noindent $(\impliedby)$ Since $Y$ is Hausdorff and $X$ is a subspace of $Y$ hence it is Hausdorff (open neighbourhood in $Y$ intersection with $X$ are open in $X$). For any point $x \in X \subset Y$ there exists disjoint open sets $U$ and $V$ containing $x$ and single point of $Y - X$. $Y - V$ is closed and hence compact (since $Y$ is compact) which lies in $X$ (since $\{\infty\}$ is not in it) hence it is compact in $X$. Therefore, $X$ is locally compact.
 \end{proof}
+
+\begin{rem}
+    If $X$ itself is compact then $Y$ is not very interesting space since $\{\infty\}$ is just an isolated point added to $X$. But if $X$ is not compact then any open neighbourhood around $\{\infty\}$ must intersect $X$ at some point other than $\{\infty\}$ otherwise that neighbourhood will just be $\{\infty\}$ which is not even open. This also shows that $\{\infty\}$ is the limit point of $X$ and $\overline{X} = Y$.
+\end{rem}
 
 \begin{defn}[One-point compactification]
     If $Y$ is compact Hausdorff space and $X$ is a proper subspace of $Y$ whose closure equals $Y$, then $Y$ is said to be a {\it compactification} of $X$. If $Y-X$ equals a single point, then $Y$ is called the {\it one-point compactification} of $X$.
 \end{defn}
+
+\begin{rem}
+    We have shown in theorem $23$ that $X$ has a one point compactification $Y$ if and only if $X$ is locally compact Hausdorff and not itself compact. $Y$ is uniquely determined upto homeomorphism (if there are two one point compactification $Y$ and $Y'$ then they are homeomorphic to each other). 
+\end{rem}
+\begin{thm}
+    Let $X$ be a Hausdorff space. Then $X$ is locally compact if and only if given in $x$ in $X$, and given a neighbourhood $U$ of $x$, there is a neighbourhood $V$ of $x$ such that $\overline{V}$ is compact and $\overline{V} \subset U$.
+\end{thm}
+\begin{proof}
+    $(\impliedby)$ We need to show $X$ is locally compact. Let $C = \overline{V}$. Then we have $x \in V \subset \overline{V}$. $X$ is locally compact.
+    
+    \noindent $(\implies)$ Assume $X$ is locally compact. Then there exists compact and Hausdorff space $Y$ such that $X$ is subspace of $Y$ and $Y - X$ is singleton. Let $U$ be the neighbourhood of $x$ in $X$. Let $C = Y - U$. $C$ is closed in $Y$ (since $U$ is open in $Y$). $C$ is compact in $Y$ (since $Y$ is compact). Since $Y$ is Hausdorff, we can choose two disjoint open neighbourhoods $V$ and $W$ of $Y$ such that $x \in V$ and $C \subset W$. $\overline{V}$ is closed in $Y$ hence compact. Also, $\overline{V} \cap C = \phi$.
+    
+    Suppose for contradiction, $\overline{V} \cap C = \{y\}$, then $y$ has to be limit point of $V$ otherwise there is a contradiction with $V \cap W = \phi$. Since $y$ is limit point of $V$, let $U_y$ be a neighbourhood around $y$, $U_y \cap V\backslash\{y\} \neq \phi$. And $\{y\} \in C \subset W$ and $W$ is open hence $U_y \subset W$, which leads to contradiction to $V \cap W = \phi$. Hence $\overline{V} \cap C = \phi$.
+
+    \noindent Therefore, $\overline{V} \subset U$.
+\end{proof}
+\begin{thm}
+    Let $X$ be a locally compact Hausdorff; let $A$ be a subspace of $X$. If $A$ is closed in $X$ or open in $X$, then $A$ is locally compact.
+\end{thm}
+\begin{proof}
+    Let $X$ be a locally compact Hausdorff space. For any $x \in X$ and an open neighbourhood $U$ of $x$, there exists an open neighbourhood $V$ of $x$ such that $\overline{V} \subset U$ and $\overline{V}$ is compact (from question $1$). Let $A \subset X$ be {\bf open} in $X$. Take arbitrary $x \in A$ and an open neighbourhood $U \cap A$ of $x$ which is open in $A$ (since $U$ is open in $X$). Also, $U \cap A$ is open in $X$ (both $U$ and $A$ are open in $X$). This implies $U \cap A$ is open in $Y$ which is one point compactification of $X$. Let $C = Y - (U \cap A)$, it is closed in $Y$ hence compact. Since $Y$ is Hausdorff, there exists an open set $V$ and $W$ in $Y$ containing $x$ and $C$, respectively such that $V \cap W = \phi$ which implies $\overline{V} \cap C = \phi$ (argument for this is in question $1$). Therefore, $\overline{V} \subset U \cap A$ and since $\overline{V}$ is closed in $Y$ hence compact in $Y$ implies compact in $X$ (since $X$ is subspace of $Y$). Since, $x \in A$ is arbitrary, from question $1$ we have $A$ is locally compact.
+
+    Let $A \in X$ be closed. Since, $X$ is locally compact. For each $x \in X$ there exists a compact set $C_x$ containing $x$ and its neighbourhood $U_x$. Since, $C_x \cap A$ is closed in $C_x$, its compact in $C_x$ which implies it is compact in $X$ (in subspace topology). Also, $U_x \cap A$ is open in $A$ (subspace topology) and contained in $C_x \cap A$ (since $U_x \subset C$). Hence, $A$ is locally compact.
+\end{proof}
+
+\begin{cor}
+    A space is $X$ is homeomorphic to an open subspace of a compact Hausdorff space if and only if $X$ is locally compact Hausdorff.
+\end{cor}
+\begin{proof}
+    TODO
+\end{proof}
+
+\section{Connectedness}
+\begin{defn}({\bf Separartion})
+    Let $X$ be a topological space. A separartion of $X$ is a pair $U$, $V$ of disjoint nonempty open subsets of $X$ whose union is $X$. The space $X$ is said to be connected if there does not exist a separartion of $X$. OR
+
+    A space $X$ is connected if and only if the only subsets of $X$ that are both open and closed in $X$ are the empty set and $X$ itself.
+\end{defn}
+
+\noindent For a subspace $Y$ of a topological space $X$:
+\begin{lem}
+    If $Y$ is a subspace of $X$, a separartion of $Y$ is a pair of disjoint nonempty sets $A$ and $B$ whose union is $Y$, neither of which contains a limit point of the other. The space $Y$ is connected if there exists no separartion of $Y$.
+\end{lem}
+
+\begin{proof}
+    $(\implies)$ Let $Y$ has a separartion, say $A, B$, such that $A \cup B = Y$, $A \cap B = \phi$ and $A, B$ both are clopen in $Y$. \\
+    \underline{Claim:} Neither $A$ nor $B$ contains the limit point of the other.
+    Suppose for contradiction, $A$ contains the limit point of $B$ say $x$. Let $U$ be the neighbourhood of $x$. Then
+    $$ U\backslash\{x\} \cap B \neq \phi$$
+    and $A$ is open hence it contains $U$. Therefore, it contradicts that $A \cap B = \phi$. This shows $A$ does not contains the limit point of $B$. Similarly, we can exchange $A$ and $B$ in above argument to show that $B$ does not contains the limit point of $A$.
+
+    \noindent $(\impliedby)$ Given disjoint subsets $A$ and $B$ of $Y$ such that $A \cup B = Y$ and neither of them contains the limit point of the other.\\ \underbar{Claim:} {\bf $A$ and $B$ are separartion of $Y$ ($A$ and $B$ are clopen in $Y$).} \\
+    Since, $A \cap B = \phi$ and neither of them contains the limit point of the other implies that $\overline{A} \cap B = \phi$ and $\overline{B} \cap A = \phi$ ($\overline{A}$ and $\overline{B}$ are closure of $A$ and $B$ in $X$, respectively). $\overline{A} \cap Y = \overline{A} \cap (A \cup B) = (\overline{A} \cap A) \cup (\overline{A} \cap B) = A$. Similarly, $\overline{B} \cap Y = B$. Hence, closure of $A$ in $Y$ is $A$ and same for $B$ which implies $A$ and $B$ closed in $Y$. Since, $Y - A = B (\because A \cup B = \phi)$ which is closed implies $A$ is clopen and similarly $B$ is clopen. 
+\end{proof}
+
+\begin{eg}
+    \begin{enumerate}
+    \item Any set with trivial topology is trivially connected.
+    \item Let $Y = [-1, 0) \cup (0,1]$ as a subspace of $\bb R$. $[-1, 0)$ and $(0,1]$ both are clopen in $Y$ and form the separartion of $Y$. Neither of the set contain the limit point of the other.
+    \item Let $X$ be the subspace $[-1,1]$ of real line. $[-1, 0]$ and $(0,1]$ are disjoint and nonempty, but they do not form a separation of $X$ since $[-1,0]$ is not open in $X$. Also, it contains $0$, limit point of other set. There exists {\it no} separartion of $X$.
+    \item Rationals $\bb Q$ are not connected. {\bf Only connected subspaces of $\bb Q$ are singletons. Hence, it is totally disconnected.} \underline{Proof:} If $Y$ is a subspace of $\bb Q$ containing two point $p$ and $q$. Then we can find a irrational number $a$ between them (density of irrationals) and then $Y \cap (-\infty, a) \cup Y \cap (a, \infty)$ is a separartion of $Y$. 
+    \end{enumerate}
+\end{eg}
+\begin{lem}
+    If the sets $C$ and $D$ form a separartion of $X$, and if $Y$ is a connected subspace of $X$, then $Y$ lies entirely within either $C$ or $D$.
+\end{lem}
+\begin{proof}
+    Suppose for contradiction that $Y$ does not lie entirely in $C$ or $D$. $Y \cap C$ and $Y \cap D$ is nonempty. Since $C \cup D = X$, we have $(Y \cap C) \cup (Y \cap D) = Y$. Also, $C$ and $D$ are clopen subspace of $X$ hence $Y \cap C$ and $Y \cap D$ are clopen subspace of $Y$. They form a separation of $Y$ which is a contradiction to the fact that $Y$ is connected. Therefore, either $Y \cap C$ or $Y \cap D$ is empty.
+\end{proof}
+\begin{thm}
+    The union of a collection of connected subspaces of $X$ that have a point in common is connected.
+\end{thm}
+\begin{proof}
+    Let $\{A_\alpha\}$ be the collection of the connected subspaces of $X$ such that $\bigcap A_\alpha = p$. \underbar{Claim:} $Y = \bigcup A_\alpha$ is connected. \\ Suppose for contradiction $Y = C \cup D$ be a separartion of $Y$. $p$ will lie in one of them. WLOG, $p \in C$ implies $A_\alpha \subset C$ for all $\alpha$ since $p$ is common point in all of them implies $\bigcup A_\alpha\subset C$. This contradicts the fact that $D$ is nonempty. Therefore, $Y$ is connected. 
+\end{proof}
+\begin{thm}
+    Let $A$ be a connected subspace of $X$. If $A \subset B \subset \overline{A}$, then $B$ is also connected. OR \\
+    If $B$ is formed by adjoining to the connected subspace $A$, some or all of its limit points, then $B$ is connected.
+\end{thm}
+\begin{proof}
+    Let $B = C \cup D$ be a separartion of $B$. $A \subset C \cup D$. Since, $A$ is connected implies $A \subset C$ or $D$. WLOG, assume $A \subset C$. Then $\overline{A} \subset \overline{C}$. Since $\overline{C} \cap D = \phi$ implies that $B$ cannot intersect with $D$. Hence $D$ is empty which is a contradiction.
+\end{proof}
+\begin{thm}
+    The image of a connected space under a continuous map is connected.
+\end{thm}
+\begin{proof}
+    Let $A$ be a connected set and $f \colon A \to B$ be a continuous map. It suffices to prove for the surjective continuous map.\\
+    \underline{Claim:} $f(A)$ is connected.\\
+    Let $f(A) = C \cup D$ be a separartion of $f(A)$. $f^{-1}(C)$ and $f^{-1}(D)$ are clopen in $A$ since $f$ is continuous. Also, $f^{-1}(C \cup D) = A$ and $f^{-1}(C) \cap f^{-1}(D) = \phi$. This forms a separartion of $A$ which contradicts the fact that $A$ is connected. Hence, $f(A)$ is connected.
+\end{proof}
+\begin{thm}
+    A finite cartesian product of connected spaces is connected.
+\end{thm}
+\begin{proof}
+    Let $\{A_1, A_2,\dots, A_n\}$ be a finite collection of connected sets. \\
+    \underline{Claim:} $Y = A_1 \times A_2 \times \dots \times A_n$ is connected. \\
+    Let $Y = C \cup D$. Let ${\bf x} = (x_1, \dots, x_n) \in Y$ implies ${\bf x}$ lies in either $C$ or $D$. WLOG, ${\bf x} \in C$. Since, $x_1 \in A_1$ implies $A_1 \times x_2 \dots \times x_n \subset C$, $x_2 \in A_2$ implies $x_1 \times A_2 \dots \times x_n \subset C$ and so on. Since ${\bf x}$ is arbitrary, we have $A_1 \times \dots \times A_n$ lies in $C$ and $D$ is empty which is a contradiction. Hence, $Y$ is connected.
+
+    There is one more argument for this, $T$ argument. By showing it for product of two connected sets which involves the fact that union of two connected sets is connected if they have a point in common. Then use that $A_1 \times \dots \times A_n$ is homeomorphic to $(A_1 \times \dots \times A_{n-1}) \times A_n$ in induction.
+\end{proof}
+\begin{defn}[Path Connectedness]
+    Given points $x$ and $y$ of the space $X$, a {\bf path} in $X$ from $x$ to $y$ is a continuous map $f \colon [a,b] \to X$ of some closed interval in the real line into $X$ such that $f(a) = x$ and $f(b) = y$.
+
+    A space is said to be path connectedness if every pair of points of $X$ can be joined by a path in $X$.
+\end{defn}
+\begin{thm}
+    A space $X$ is path connected then it is connected.
+\end{thm}
+\begin{proof}
+    Let $X = C \cup D$ be a separartion of $X$. Let $x,y \in X$ are the two points then there exists a continuous map $f\colon [a,b] \to X$ such that $f(a) = x$ and $f(b) = y$. Since $[a,b]$ is connected, $f([a,b])$ is also connected (continuous image of a connected set is connected). Hence, $f([a,b])$ have to lie in either $C$ or $D$. Let $x \in C$ and $y \in D$ then $f([a,b])$ have to lie in either $C$ or $D$ but this is a contradiction since $f(a) = x$ is in $C$ and $f(b) = y$ is in $D$. Therefore, any one of the $C$ or $D$ has to be empty which shows $X$ is connected.
+
+    A {\bf second proof} for this theorem is: "All roads lead to Rome". Let $x \in X$ be any point in a path connected space. Then for any $y \in X$, there exists a path $p_y \colon [a,b] \to X$ that connects $x$ and $y$ implies $X = \bigcup_{y \in X} p_y([a,b])$. Since $p_y$'s are continuous and each $p_y$ is connected (continuous image of a connected set $[a,b]$) with $x$ in common, we have their union ($X$) is connected. (Union of connected sets with a point in common is connected, previous theorem).
+\end{proof}
+
+\begin{rem}
+    The converse does not hold. A connected space does not have to be path connected.
+\end{rem}
+\paragraph{{\bf Examples of path connected spaces:}}
+\begin{enumerate}
+    \item {\bf Unit ball} in $\bb R^n$ is path connected. $B^n \colon=\{\bf{x} \mid \|x\|_2 \leq 1\}$. Given any two point, we have a {\it straight line} path, defined as $f\colon[0,1] \to \bb R^n$ such that $f(t) = (1-t){\bf x} + t{\bf y}$.
+    $$ \|f(t)\| = \|(1-t){\bf x} + t{\bf y}\| \leq (1-t)\|{\bf x}\| + t\|{\bf y}\| \leq 1(TODO)$$
+
+    A similar argument shows that every open ball $B({\bf x},\epsilon)$ and every closed ball $\overline{B}({\bf x},\epsilon)$ in $\bb R^n$ is path connected.
+    \item {\bf Punctured euclidean space}: $\bb R^n - \{0\}$. If $n > 1$, this space is path connected. Given any two point, there exists a straight line path or if $0$ is in between then take a point $z$ and take a broken path.
+    
+    For $n = 1$, there does not exists a path between $-1$ and $1$. Hence, is it not path connected.
+    \item {\bf Unit Sphere} $S^{n-1}$ in $\bb R^n$ is given by the equation $ S^{n-1} = \{{\bf x} \mid \|x\| = 1\}$. If $n > 1$, it is path connected. For the map $g \colon \bb R^n - \{0\} \to S^{n-1}$ defined by $g({\bf x}) = {\bf x}\backslash\|x\|$ is continuous and surjective; and continuous image of a path connected space is path connected.(TODO: Proof)
+\end{enumerate}
+\paragraph{{\bf Example of connected spaces which are not path connected}}
+TODO
+
+\begin{defn}[Connected components]
+    Given $X$, define an equivalence relation on $X$ by setting $x \sim y$ if there is a connected subspace of $X$ containing both $x$ and $y$. The equivalence classes are called the {\bf connected components} of $X$.
+\end{defn}
+
+\begin{thm}
+    The components of $X$ are connected disjoint subspaces of $X$ whose union is $X$, such that each non empty connected subspaces of $X$ intersects only one of them.
+\end{thm}
+\begin{proof}
+    Since components of $X$ are equivalence classes hence they are disjoint and their union is $X$. Let $A \subset X$ be a non empty connected subset. \underline{Claim:} $A$ intersects only one of the components. Let $C_1$ and $C_2$ be the components of $X$ and $A$ intersects them at points $a$ and $b$. Since, $a \in C_1 \cap A$ hence $A \cup C_1$ is connected set containing $a$ (union of connected sets with a point in common) and all elements of $A \cup C_1$ are related. Similarly, $A \cup C_2$ is connected and all its elements are connected. In particular, $a \sim b$. This is only possible when $C_1 = C_2$.
+    
+    \underline{Claim:} Components of $X$ are connected. Let $C$ be the component of $X$ and $x_0 \in C$. For each $x \in C$, we have $x \sim x_0$ and an connected subset $A_x$ containing them. By the above claim, we have $A_x \subset C$. Since, $x \in C$ is arbitrary, we have
+    $$ C = \bigcup_{x \in C} A_x$$
+    Also, each $A_x$ is connected and have a point $x_0$ is common. Hence, their union is also connected (by some previous theorem). 
+\end{proof}
+
+\begin{defn}[Path Components]
+    We define another equivalence relation on the space $X$ by defining $x \sim y$ if there is a path in $X$ from $x$ to $y$. The equivalence classes are called the {\bf path components}.
+\end{defn}
+\paragraph{{\bf Above relation is an equivalence relation}}
+\underline{For reflexivity}: $x \sim x$ because there exists a constant function $f:[0,1] \to X$ as $f(t) = x$ as path from $x$ to $x$. \\
+\underline{For symmetry}: If there exists a path $f \colon [0,1] \to X$ from $x$ to $y$. Then there exists a reverse path $g\colon[0,1] \to X$ given by $g(1-t)$ from $y$ to $x$ hence $y \sim x$.\\
+\underline{For transitivity}: If $x \sim y$ and $y \sim z$ that is there exist continuous functions $f\colon [0,1] \to X$ and $g\colon [1,2] \to X$ defined on closed intervals $[0,1]$ and $[1,2]$ then the function $h\colon[0,2] \to X$ from $x$ to $z$ which is continuous (by pasting lemma). Hence $x \sim z$.
+
+\begin{thm}
+    The path components of $X$ are path connected disjoint subspaces of $X$ whose union is $X$, such that each nonempty path connected subspace of $X$ intersects only one of them.    
+\end{thm}
+\begin{proof}
+    Since path components of $X$ are equivalence classes, they are disjoint and their union is $X$. \underline{Claim:} Each nonempty path connected subspace of $X$ intersects only one of them. Let $A$ be a path connected subspaces of $X$, and $C_1$ and $C_2$ be the path components of $X$. Let $A$ intersects them at $a$ and $b$ respectively. This will imply $a$ and $b$ are related which is only possible when $C_1 = C_2$.\\
+    \underline{Claim:} Path components are path connected. This claim is trivial from definition of equivalence relation since each path component contains points between which there exists a path. Hence it is path connected.
+\end{proof}
+\begin{rem}
+    Note that each components of a space $X$ is closed in $X$ since closure of the connected subspace of $X$ is connected (otherwise separation of closure of subspace will induce the separation of the subspace). Since for two connected components $C_1$ and $C_2$, we have $C_1 \cap C_2 = \phi$ which implies $\overline{C_1} \cap C_2 = \phi$. This means $\overline{C_1} \subset C$ which implies $\overline{C_1} = C$ hence it is closed.
+\end{rem}
+\begin{rem}
+    The connected components of $X$ will be {\bf clopen} only when if there are finitely many components. This is because complement of a connected component is union of closed sets which is closed if the collection is finite.
+\end{rem}
+\begin{defn}[Locally connected]
+    A space $X$ is said to be {\bf locally connected} at $x$ if for every neighbourhood $U$ of $x$, there is a connected neighbourhood $V$ of $x$ contained in $U$. If $X$ is locally connected at all its point then it is called locally connected space.
+
+    A space $X$ is said to be {\bf locally path connected at $x$} if for every neighbourhood $U$ of $x$ contains a path connected neighbourhood $V$ of $x$. If $X$ is locally path connected at each of its points, then it is called locally path connected space.
+\end{defn}
+\begin{eg}
+    Interval in real line are connected as well as locally connected. $[-1,0) \cup (0,1]$ in $\bb R$ is not connected but it is locally connected.
+\end{eg}
+\begin{eg}
+    Rational are neither connected ($(-\infty, \sqrt{2}),(\sqrt{2},-\infty)$ is a separartion) nor locally connected. Why?
+
+    Let $r \in \bb Q$ and $U$ be the open in $\bb R$ then $U \cap \bb Q$ neighbourhood of $x$ in $\bb Q$. Let $V$ be the another open subset of $U$ then $V \cap \bb Q$ will be open in $\bb Q$. Since $V \cap \bb Q \neq \{r\}$ ($V \cap \bb Q$ is open in $\bb Q$ but singletons are closed in $\bb Q$) implies there exists some $r_1 \neq r \in V$ and there exists an irrational number between two rationals say $x$ then $((-\infty, x) \cap (V \cap \bb Q))$ and $((x, \infty) \cap (V \cap \bb Q))$ forms the separation of $V \cap \bb Q$ therefore it can not be connected. Hence there does not exists any connected open neighbourhood in $U \cap \bb Q$.
+\end{eg}
+\begin{rem}
+    Connectedness not necessarily implies locally connectedness (topologist sine curve) and converse is also not true ($[-1,0) \cup (0,1]$).   
+\end{rem}
+\begin{thm}
+    If a space $X$ is path connected then it is connected. 
+\end{thm}
+\begin{proof}
+    TODO (contradiction method)
+\end{proof}
+\begin{rem}
+    Converse of above statement is not true. Counter example: Topologist sine curve.
+\end{rem}
+\begin{thm}[When locally connected implies connected]
+    A space $X$ is locally connected if and only if for every open set $U$ of $X$, each component of $U$ is open in $X$.
+\end{thm}
+\begin{proof}
+    $(\implies)$Suppose that $X$ is locally connected and $C$ be the component of $U$. If $x$ lies in $C$, let $V$ be a connected neighbourhood of $x$. Since $x$ lies in both $V$ and $C$ and $V$ is connected, $V$ lies entirely in $C$ hence $C$ is open in $X$ (contains neighbourhood of the points).
+
+    \noindent $(\impliedby)$ For every open set $U$ of $X$, each component $C$ of $U$ is open in $X$. Let $V = C$. Hence, for every open set $U$ containing $x$ contains a connected open neighbourhood $C$ and $U$ is arbitrary therefore, $X$ is locally connected.
+\end{proof}
+\begin{thm}
+    A space $X$ is locally path connected if and only if for every open set $U$ of $X$, each path component of $U$ is open in $X$.
+\end{thm}
+\begin{proof}
+    Similar argument as above theorem, replace component with path component.
+\end{proof}
+
+\begin{thm}[A relation between path components and components]
+    If $X$ is a topological space, each path component of $X$ lies in a component of $X$. If $X$ is locally path connected, then the components and the path component are the same.
+\end{thm}
+\begin{proof}
+    TODO (easy only)
+\end{proof}
+\section{The Countability Axioms}
+\begin{defn}[First Countable]
+    A space $X$ is said to have a {\bf countable basis at $x$} if there is a countable collection $\cal B$ of neighbourhoods of $x$ such that any neighbourhood $U$ of $x$ contains at least one of the elements of $\cal B$.
+    
+    A space that has a countable basis at each of its points is said to satisfy the {\bf first countability axiom}, or to be {\bf first-countable}.
+\end{defn}
+\begin{thm}
+    Let $X$ be a topological space:
+    \begin{enumerate}
+        \item Let $A$ be a subset of $X$. If there is a sequence of points of $A$ converging to $x$, then $x \in \overline{A}$; converse holds if $X$ is first-countable.
+        \item Let $f \colon X \to Y$. If $f$ is continuous, then for every convergent sequence $x_n \to x$ in $X$, the sequence $f(x_n)$ converges to $f(x)$. The converse holds if $X$ is first-countable.
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    First countability is needed.
+\end{proof}
+\begin{defn}[Second Countability]
+    If a space $X$ has a countable basis for its topology, then $X$ is said to be {\bf second countable} or satisfy second countability axiom.
+\end{defn}
+\begin{rem}
+    Every metric space first countable but it need not be second countable.    
+\end{rem}
+\begin{quotation}
+\begin{eg}[Second countable spaces]
+    $\bb R, \bb R^n, \bb R^{\omega}$ are second countable with standard topology. Take intervals with rational end points as a countable basis for $\bb R$ and $\bb R^n$($n$-dimensional interval). For $\bb R^\omega$, collection of all products $\Pi_{n\in \bb Z_+} U_n$, where $U_n$ is an open interval with rational points for finitely many values of $n$ and $\bb R$ for all other values of $n$.
+\end{eg}
+\end{quotation}
+
+\begin{thm}
+    A subspace of a first-countable (second-countable) space is first-countable (second-countable), and a countable product of first-countable (second-countable) spaces is first-countable (second countable).
+\end{thm}
+\begin{proof}
+    For subspace of second countable space, take the intersection of the basis elements with the subspace to produce the countable basis for the subspace. 
+
+    For countable product of second countable spaces, $\Pi U_i$ is the basis of the product where $U_i = \cal B_i$ for finitely many $i's$ and $U_i = X_i$ for all other values of $i$. ($\cal B_i$ is collection of countable bases for each space in the product).
+
+    For first countable axiom, proof is similar.
+\end{proof}
+
+\begin{defn}[Dense]
+    A subset $A$ of a space $X$ is said to be dense in $X$ if $\overline{A} = X$.
+\end{defn}
+\begin{thm}
+    Suppose $X$ has a countable basis (second countable). Then:
+    \begin{enumerate}
+        \item Every open covering of $X$ contains a countable subcollection covering $X$. (called {\bf Lindel\"{o}f space})
+        \item There exists a countable subset of $X$ that is dense in $X$. (called {\bf separable space})
+    \end{enumerate}
+\end{thm}
+
+
+
 
 \end{document}

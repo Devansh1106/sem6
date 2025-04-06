@@ -1,0 +1,62 @@
+%% Credits of this ams template are with respective people. @Devansh1106 neither own this template nor the credits. 
+\documentclass[12pt,reqno]{amsart}
+
+\usepackage{graphicx}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\setlength{\parskip}{0.5\baselineskip}%
+\setlength{\parindent}{20pt}
+\theoremstyle{plain}
+
+\newtheorem*{thm*}{Theorem}
+%% this allows for theorems which are not automatically numbered
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}{Lemma}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{eg}{Example}
+\newtheorem{rem}{Remark}
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\cal}[1]{\mathcal{#1}}
+\usepackage{lineno}
+%% The above lines are for formatting.  In general, you will not want to change these.
+
+
+\title{Assignment $6$}
+\author{Devansh Tripathi IMS22090}
+
+\begin{document}
+
+\begin{abstract}
+    This document contains solution for assignment $6$ of General Topology course.
+\end{abstract}
+\maketitle
+% {\large \part{\centering \\ Preliminaries}} % substitute to chapter or change to amsbook document class
+\begin{center}
+    \item \paragraph{{\bf Sol. 1}}
+\end{center}
+Let $\bigcup A_n = C \cup D$ be a separation. For some $i \in \bb N$, $A_i \subset C \text{ or } D$. WLOG, let $A_i \subset C$, Since $A_i \cap A_{i+1} \neq \phi$ and $A_{i+1}$ is connected, we have $A_{i+1} \subset C$. $i \in \bb N$ is arbitrary implies we have $A_i$'s in $C$ for all $i \in \bb N$. Therefore, $D = \phi$ which implies $\bigcup A_n$ is connected.
+
+\begin{center}
+    \item \paragraph{{\bf Sol. 2}}
+\end{center}
+Let $X = C \cup D$ be a separartion. $p^{-1}(y \in Y) = \{x \in X \mid y = p(x) \}$ is connected implies $p^{-1}(y \in Y) \subset C \text{ or } D$. WLOG, assume it is $C$. For $y' \in Y$, $p^{-1}(y')$ can lie based on two cases:\\
+\underline{Case 1:} $p^{-1}(y') \subset C$.\\ Since, $y' \in Y$ is arbitrary implies it is true for any $y' \in Y$ implies $D = \phi$. Then $X$ is connected.\\
+\underline{Case 2:} $p^{-1}(y') \subset D$. \\
+Let $A$ be the set of all $y \in Y$ such that $p^{-1}(y) \subset D$ implies ($A \subset p(D)$). Also, for all $x \in D$, we have $p(x) \in A$ implies $p(D) \subset A$ (otherwise if $p(x) \notin A$ then there exists $y = p(x)$ in $Y\backslash A$ such that $p^{-1}(y) \subset D$ (why? since $x \in D$ and $x \in p^{-1}(y)$ and latter is connected), which contradicts the definition of $A$). Hence, $p^{-1}(A) = D$ which is clopen implies open. This implies $A$ is open (since $p$ is quotient map).
+
+Similarly, for all $y \in Y \backslash A$, $p^{-1}(y) \subset C$ (otherwise, if it in $D$ then $y$ has to be in $A$ which is not the case). Hence, $p^{-1}(Y \backslash A) = C$ (for $C \subset p^{-1}(Y \backslash A)$ observe that for all $x \in C$, $p(x) \subset Y \backslash A$ otherwise, if $p(x) \subset A$ then $x$ has to be in $D$ which is not the case). Hence, $p^{-1}(Y \backslash A$) is clopen and $Y \backslash A$ is open (since $p$ is quotient map). 
+
+Both $A$ and $Y \backslash A$ are open in $Y$ and their union is $Y$ implies that they are clopen in $Y$ and forms a separation of $Y$ which is a contradiction since $Y$ is connected. Hence, $X$ is connected.
+
+\begin{center}
+    \item \paragraph{{\bf Sol. 3}}
+\end{center}
+
+
+
+\end{document}

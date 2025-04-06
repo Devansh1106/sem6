@@ -1,0 +1,82 @@
+%% Credits of this ams template are with respective people. @Devansh1106 neither own this template nor the credits. 
+\documentclass[12pt,reqno]{amsart}
+
+\usepackage{graphicx}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\setlength{\parskip}{0.5\baselineskip}%
+\setlength{\parindent}{20pt}
+\theoremstyle{plain}
+
+\newtheorem*{thm*}{Theorem}
+%% this allows for theorems which are not automatically numbered
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}{Lemma}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{eg}{Example}
+\newtheorem{rem}{Remark}
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\cal}[1]{\mathcal{#1}}
+\usepackage{lineno}
+%% The above lines are for formatting.  In general, you will not want to change these.
+
+
+\title{Assignment $5$}
+\author{Devansh Tripathi IMS22090}
+
+\begin{document}
+
+\begin{abstract}
+    This document contains solution for assignment $5$ of General Topology course.
+\end{abstract}
+\maketitle
+% {\large \part{\centering \\ Preliminaries}} % substitute to chapter or change to amsbook document class
+\begin{center}
+    \item \paragraph{{\bf Sol. 1}}
+\end{center}
+$(\impliedby)$ Assume for any $x \in X$ and any open set $U_x$ containing $x$, there exists open set $V$ containing $x$ such that $\overline{V}$ is compact and $\overline{V} \subset U_x$. Let $C = \overline{V}$ be the compact set containing $x$ and a neighbourhood $V$ around $x$. Since $x$ is arbitrary, it is true for all $x$. Therefore, $X$ is locally compact.
+
+\noindent $(\implies)$ Assume $X$ is locally compact and Hausdorff then there exists a compact Hausdorff space $Y$ such that $X$ is subspace of $Y$ and $Y - X = \{\infty\}$. For each $x \in X$ and a neighbourhood $U$ of $x$, since $U$ is open in $X$, it is open in $Y$ which implies $C = Y - U$ is closed and compact (closed subset of compact space).
+
+\noindent Since $Y$ is Hausdorff then for any $x \in X \subset Y$ and a compact $C \subset Y$ there exists two disjoint open sets $V$ and $W$ in $Y$ such that $x \in V$ and $C \subset W$. Since, $V \cap W = \phi$ implies $\overline{V} \cap W = \phi$ (if $\overline{V} \cap W \neq \phi$ then $x \in W$ and either $x \in V$ or $x \in V'$ ($V'$ is limit point set of $V$). $x \in V$ will contradict $V \cap W$ trivially. For $x \in V'$, then for any neighbourhood $S$ around $x$ we have $ S \cap V\backslash\{x\} \neq \phi$ and since $W$ is open set containing $x$ implies it contains $S$ that will again contradict $V \cap W = \phi$).
+
+\noindent $\overline{V}$ is closed in $Y$ therefore it is compact and $\overline{V} \cap W = \phi$ implies $\overline{V} \cap C = \phi$. Since, $C = Y - U$ hence we have $\overline{V} \subset U$.
+
+\begin{center}
+    \item \paragraph{{\bf Sol. 2}}
+\end{center}
+(In this question, we have to assume $X$ is Hausdorff.)
+
+Let $X$ be a locally compact Hausdorff space. For any $x \in X$ and an open neighbourhood $U$ of $x$, there exists an open neighbourhood $V$ of $x$ such that $\overline{V} \subset U$ and $\overline{V}$ is compact (from question $1$). Let $A \subset X$ be {\bf open} in $X$. Take arbitrary $x \in A$ and an open neighbourhood $U \cap A$ of $x$ which is open in $A$ (since $U$ is open in $X$). Also, $U \cap A$ is open in $X$ (both $U$ and $A$ are open in $X$). This implies $U \cap A$ is open in $Y$ which is one point compactification of $X$. Let $C = Y - (U \cap A)$, it is closed in $Y$ hence compact. Since $Y$ is Hausdorff, there exists an open set $V$ and $W$ in $Y$ containing $x$ and $C$, respectively such that $V \cap W = \phi$ which implies $\overline{V} \cap C = \phi$ (argument for this is in question $1$). Therefore, $\overline{V} \subset U \cap A$ and since $\overline{V}$ is closed in $Y$ hence compact in $Y$ implies compact in $X$ (since $X$ is subspace of $Y$). Since, $x \in A$ is arbitrary, from question $1$ we have $A$ is locally compact.
+
+Let $A \in X$ be closed. Since, $X$ is locally compact. For each $x \in X$ there exists a compact set $C_x$ containing $x$ and its neighbourhood $U_x$. Since, $C_x \cap A$ is closed in $C_x$, its compact in $C_x$ which implies it is compact in $X$ (in subspace topology). Also, $U_x \cap A$ is open in $A$ (subspace topology) and contained in $C_x \cap A$ (since $U_x \subset C$). Hence, $A$ is locally compact.
+
+\begin{center}
+    \item \paragraph{{\bf Sol. 3}}
+\end{center}
+
+\paragraph{(i)} Suppose for contradiction that $(\bb R, \cal T_{cof})$ is metric space and $d \colon \bb R \times \bb R \to \bb R$ is a metric. For some $x \in \bb R$, open balls will be $ B(x,r) \colon=\{y \mid d(x,y) < r, r \in \bb R^{+}\}$. Open balls are open sets in metric spaces. Hence, $\bb R - B(x,r)$ should be finite. 
+$$ \bb R - B(x,r) = \{z \mid d(x,z) \geq r, r \in \bb R^{+}\}$$ 
+which is not fin<ite. This shows contradiction. Hence, $(\bb R, \cal T_{cof})$ is not a metric space.
+
+\paragraph{(ii)} Let $\{U_\alpha\}_{\alpha \in I}$ be an open cover of $(\bb R, \cal T_{cof})$. This means $\bb R - U_\beta$, $\beta\in I$, is finite, say $\{x_1, \dots, x_n\}$. Take $U_1$ containing $x_1$, $U_2$ containing $x_2$ and so on (they exists since $\{U_\alpha\}_{\alpha \in I}$ is an open cover). Then $\{U_\beta, U_1, \dots, U_n\}$ is a finite subcover. Hence, $(\bb R, \cal T_{cof})$ is compact.
+
+\begin{rem}
+    In fact, in above argument there is nothing specific to $\bb R$. This also shows that any set having cofinite topology is compact.
+\end{rem}
+
+\paragraph{(iii)} Since compactness implies limit point compactness implies that $(\bb R, \cal T_{cof})$ is also limit point compact.
+
+\paragraph{(iv)} Let $(x_n) \in X$ be a sequence. Let $A = \{x_n \mid n \in \bb Z_+\}$ be a set. 
+
+\noindent \underline{Case 1:} If $A$ is finite then there exists $N \in \bb Z_+$ and $x \in A$ such that $x_n = x$ for all $n > N$. Hence, there exists a constant subsequence that is trivially convergent.
+
+\noindent \underbar{Case 2:} If $A$ is infinite then there exists a limit point of $A$ since $(\bb R, \cal T_{cof})$ is limit point compact. Since every convergent sequence is bounded implies $A$ is bounded and then by Bolzano-Weierstrass, we have a convergent subsequence in $A$.
+
+Therefore, $(\bb R, \cal T_{cof})$ is sequentially compact.
+\end{document}
