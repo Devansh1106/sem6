@@ -1084,6 +1084,64 @@ TODO
         \item There exists a countable subset of $X$ that is dense in $X$. (called {\bf separable space})
     \end{enumerate}
 \end{thm}
+\begin{proof}
+    TODO
+\end{proof}
+\section{The Separation Axiom}
+\begin{defn}[Regular and Normal Spaces]
+    Suppose that one-point sets are closed in $X$ ($T_1$-axiom). Then $X$ is said to be {\bf regular} if for each pair consisting of a point $x$ and a closed set $B$ disjoint from $x$, there exists disjoint open sets containing $x$ and $B$, respectively.
+
+    The space $X$ is said to be {\bf normal} if for each pair $A,B$ of disjoint closed sets of $X$, there exists disjoint open sets containing $A$ and $B$, respectively.
+\end{defn}
+\begin{defn}[Separation Axioms]
+    The axioms are:
+    \begin{enumerate}
+        \item ($T-0$ axiom) For each pair $x,y \in X$, $x \neq y$, there exists an open set $U \subset X$ such that $U$ contains atleast one of the point $x,y$ and not the other.
+        \item ($T-1$ axiom) For every pair $x,y \in X$, $x \neq y$, there exists an open set for each point such that one does not contain the other. ($x \in U, y \notin U$ and $ y\in V, x \notin V$.)
+        \item ($T-2$ axiom) For any $x,y \in X$, $x \neq y$, there exists open sets $U,V \subset X$ such that $x \in U$ and $y \in V$ and $U \cap V = \phi$. Also called {\bf Hausdorff property}.
+        \item  ($T-3$ axiom) A regular $T-1$ space is called $T-3$ space.
+        \item ($T-4$ axiom) A normal $T-1$ space is called $T-4$ space.
+    \end{enumerate}
+\end{defn}
+\begin{rem}
+    By the definition given in this notes(munkres), I am assuming $T-1$ in the definition of regular/normal spaces. So $(4),(5)$ can also be stated as {\it regular (normal) spaces are $T-3~(T-4)$}.
+\end{rem}
+
+\begin{rem}[Difference between $T-0$ and $T-1$]
+    In $T-0$ topology, there exists an open neighbourhood for atleast one of the point and there need not be any neighbourhood for the other point.
+
+    While in $T-1$ topology, there exists open neighbourhood for every pair. So, if $x \in U$ and $y \notin U$, we also have some $V$ for pair $y,x$ such that $y \in V$ and $x \notin V$. Hence, there exists the neighbourhood for both the points but that need not be the case for $T-0$. 
+\end{rem}
+\begin{rem}
+    $T-4 \implies T-3 \implies T-2 \implies T-1 \implies T-0$. 
+\end{rem}
+\begin{lem}
+    Let $X$ be a $T-1$ topological space.
+    \begin{enumerate}
+        \item $X$ is regular iff given a point $x \in X$ and a neighbourhood $U$ of $x$, there is a neighbourhood $V$ of $x$ such that $\overline{V} \subset U$.
+        \item $X$ is normal iff given a closed set $A$ and an open set $U$ containing $A$, there is an open set $V$ containing $A$ such that $\overline{V} \subset U$.
+    \end{enumerate}
+\end{lem}
+\begin{proof}
+    $(1) (\implies)$ Suppose $X$ is regular. Given $x \in X$ and $U \subset X$ containing $x$. Let $W = X - U$ (closed). There exists $V,T \subset X$ such that $x \in V$ and $W \subset T$ and $V \cap T = \phi$ ($\because X$ is regular) implies $\overline{V} \cap T = \phi$ which implies $\overline{V} \cap W = \phi$. This shows that $ \overline{V} \subset U$ and $x \in V$.
+
+    \noindent $(\impliedby)$ Let $x \notin C = X - U$. It is closed and $x\in X$. $V$ be the open neighbourhood containing $x$ and $X - \overline{V}$ be the open set containing $X - U$. $(X - \overline{V}) \cap V = \phi$. Hence, $X$ is regular.
+
+    $(2) (\implies)$ Suppose $X$ is normal. Given a closed set $A$ and an open set $U$ containing $A$. Let $W = X - U$. It is closed and does not intersect with $A$. Hence, there exist $V,T \subset X$ such that $A \subset V$ and $W \subset T$ and $V \cap T = \phi$ implies $\overline{V} \cap T = \phi$ which implies $\overline{V} \cap W = \phi$. Therefore, $\overline{V} \subset U$ containing $A$.
+
+    \noindent $(\impliedby)$ Let $A \nsubseteq C = X - U$. It is closed and $A\subset X$ is closed. $V$ be the open neighbourhood containing $A$ and $X - \overline{V}$ be the open set containing $X - U$ ($\because \overline{V} \subset U$). $(X - \overline{V}) \cap V = \phi$. Hence, $X$ is normal.
+\end{proof}
+\begin{rem}
+    Hausdorff and regular spaces are well behaved with subspaces and products.
+\end{rem}
+\begin{proof}
+    TODO
+\end{proof}
+\begin{quotation}
+    \begin{eg}[Hausdorff but not regular: $\bb R_K$]
+
+    \end{eg}
+\end{quotation}
 
 
 
