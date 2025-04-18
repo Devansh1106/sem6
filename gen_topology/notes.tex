@@ -1139,11 +1139,116 @@ TODO
 \end{proof}
 \begin{quotation}
     \begin{eg}[Hausdorff but not regular: $\bb R_K$]
-
+    $K$ is closed because $\bb R\backslash K = (-\infty,0) \cup \cup_{n=1}^{\infty}(\frac{1}{n+1},\frac{1}{n}) \cup (1,\infty)$ is open and $0$ does not belong to $K$. Take two open neighbourhood containing $0$ and orher containing $K$. Since, $0$ is the limit point of $K$, these two neighbourhood can not be disjoint (by definition of limit point).
     \end{eg}
 \end{quotation}
+\begin{thm}
+    Every regular space with a countable basis is normal.
+\end{thm}
+\begin{proof}
+    TODO
+\end{proof}
+\begin{thm}
+    Every metrizable space is normal.
+\end{thm}
+\begin{proof}
+    Let $(X,d)$ be the space and let $A$ and $B$ be the two disjoint closed subsets of $X$. For each $x \in A$, choose $\varepsilon_a$ such that the ball $B(a,\varepsilon_a) \cap B = \phi$. Similarly, for each $b \in B$ choose $\varepsilon_b$. Let $U = \bigcup B(a,\varepsilon_a/2)$ and $V = B(b,\varepsilon_b/2)$.
 
+    \noindent \underline{Claim:} $U \cap V = \phi$. Suppose for contradiction, $z \in U \cap V$ implies $d(a,z) < \varepsilon_a/2$ and $d(z,b) < \varepsilon_b/2$. By triangle inequality, we have $d(a,b) \leq d(a,z) + d(z,b) < (\varepsilon_a + \varepsilon_b)/2$. If $\varepsilon_a \geq \varepsilon_b$ then it means $d(a,b) < \varepsilon_a$ which is not possible. Similar contradiction arises if we choose $\varepsilon_a < \varepsilon_b$.
+\end{proof}
+\begin{thm}
+    Every compact Hausdorff space is normal.
+\end{thm}
+\begin{proof}
+    Let $X$ be compact and Hausdorff space. We can show that $X$ is regular. Given two disjoint closed subsets $A,B \subset X$ we have to find two open disjoint subsets of $X$ containing $A$ and $B$.
 
+    \noindent For $a\in A$ and $B$, there exists open subset $U_a$ of $X$ containing $a$ and open subset $V_i$ containing $B$ such that $U_a \cap V_i = \phi$ (by regularity of space). Then for each $a \in A$, $\{U_a\}$ is a open covering of $A$. Since, $A$ is compact, we have $\{U_1, U_2, \dots U_n\}$ as finite open cover of $A$. Then,
+    $$ A \subset U = U_1 \cup \dots \cup U_n \qquad B \subset V = V_1 \cap \dots \cap V_n$$
+    $U$ and $V$ are disjoint since each $U_i$ and $V_i$ is disjoint.    
+\end{proof}
+\begin{rem}
+    Why is there a need of compactness in above proof? Since, if we do not have finite cover of $A$ then we can not say that $U$ and $V$ are disjoint since it is a arbitrary union. We can only say if the collection $\{U_a\}$ is countable.
+\end{rem}
+\begin{thm}
+    Every {\it well-ordered} set $X$ is normal in the order topology.
+\end{thm}
+\begin{proof}
+    TODO
+\end{proof}
+\section{The Urysohn Lemma}
+\begin{thm}[Urysohn Lemma]
+    Let $X$ be a normal space, let $A$ and $B$ be disjoint closed subsets of $X$. Let $[a,b]$ be a closed interval in the real line. Then there exists a continuous map 
+    $$ f \colon X \to [a,b]$$
+    such that $f(x)=a$ for every $x$ in $A$, and $f(x)=b$ for every $x$ in $B$.    
+\end{thm}
+\begin{proof}
+    TODO
+\end{proof}
+\begin{defn}
+    If $A$ and $B$ are two subsets of the topological space $X$, and there is a continuous function $f \colon X \to [0,1]$ such that $f(A) = \{0\}$ and $f(B) = \{1\}$, we say that $A$ and $B$ {\bf can be separated by a continuous functions}.
+\end{defn}
+\begin{defn}[Completely regular ($T-3\frac{1}{2})$ axiom]
+    A space $X$ is {\bf completely regular} if one-point sets are closed in $X$ and if for each point $x_0$ and each closed set $A$ not containing $x_0$, there is a continuous function $f \colon X \to [0,1]$ such that $f(x_0) = 1$ and $f(A) = \{0\}$.
+\end{defn}
+\begin{thm}
+    A subspace of a completely regular space is completely regular. A product of a completely regular spaces is completely regular.
+\end{thm}
+\begin{proof}
+    TODO
+\end{proof}
 
+\section{The Urysohn Metrization theorem}
+\begin{thm}[Urysohn Metrization theorem]
+    Every regular space $X$ with a countable basis is metrizable.
+\end{thm}
+\begin{proof}
+    TODO
+\end{proof}
+\section{Algebraic Topology}
+\begin{rem}
+    If a space has a topological property that another topological space does not then these two topologica spaces can not be homeomorphic.
+    
+    \noindent For e.g. $\bb R$ and $\bb R^2$ are not homeomorphic because deleting a point from $\bb R^2$ leaves it connected but deleting a point from $\bb R$ makes it disconnected.
+\end{rem}
+\begin{defn}[Homotopic]
+    If $f$ and $f'$ are continuous maps of the space $X$ into the space $Y$, we say $f$ is {\bf homotopic} to $f'$ if there is a continuous map $F \colon X \times I \to Y$ such that 
+    $$ F(x,0) = f(x) \quad \text{ and } \quad  F(x,1) = f'(x)$$
+    for each $x$. $I = [0,1]$. The map $F$ is called a {\bf homotopy} between $f$ and $f'$. If $f$ is homotopic to $f'$, we write $f \simeq f'$.
+\end{defn}
+\begin{rem}
+    Think of homotopy as a continuous one-parameter family of maps from $X$ to $Y$. If $t$ is time then $F$ represents a continuous "deforming" of a map $f$ to the map $f'$ as $t$ goes from $0$ to $1$.
+\end{rem}
+\begin{defn}[Path Homotopic]
+    Two paths $f$ and $f'$ mapping the interval $I = [0,1]$ into $X$, are said to be {\bf path homotopic} if they have the same initial point $x_0$ and the same final point $x_1$, and if there is a continuous map $F \colon I \times I \to X$ such that 
+    \begin{align*}
+        F(s,0) = f(s) \quad &\text{ and } \quad  F(s,1) = f'(s) \\
+        F(0,t) = x_0  \quad &\text{ and } \quad  F(1,t) = x_1
+    \end{align*}
+    for each $s \in I$ and each $t \in I$. We call $F$ a {\bf path homotopy} between $f$ and $f'$. Notation: $f \simeq_p f'$.
+\end{defn}
+\begin{thm}
+    A homotopy between continuous maps is an equivalence relation on the set of all continuous functions. 
+\end{thm}
+\begin{proof}
+    Reflexivity is trivial. For transitivity, use composition of paths.
+    $$ G(x,t) = \begin{cases}
+        F(x,2t) &t \in [0,1/2]\\
+        F'(x,2t-1) & t \in [1/2, 1]
+    \end{cases}
+    $$ is the required homotopy from first to third function.
+    For symmetry, $F(x, 2t-1)$ is the reverse homotopy.
+\end{proof}
+\begin{defn}[Homotopy relative to subset $A$]
+    Let $g,f \colon X \to Y$ be continuous and $g\mid_A = f\mid_A$ for a subset $A \subset X$. A homotopy $H \colon f \Rightarrow g$ is called a homotopy relative to $A$ if $H(a,t) = f(a) = g(a)$ for all $a \in A$.
+\end{defn}
+\begin{rem}
+    A path homotopy is homotopy relative to the subset $A = \{0,1\}$ where $X = [0,1]$.
+\end{rem}
+\begin{cor}
+    A homotopy relative to a subet $A$ is also an equivalence relation.
+\end{cor}
+\begin{defn}[Fundamental Group]
+    Let $X$ be a space; let $x_0$ be a point of $X$. A path in $X$ that begins and ends at $x_0$ is called a {\bf loop} based at $x_0$. The set of path homotopy classes of loops based at $x_0$, with the operation $\star$, is called {\bf fundamental group} of $X$ relative to the base point $x_0$. It is denoted by $\pi_1(X, x_0)$.
+\end{defn}
 
 \end{document}
