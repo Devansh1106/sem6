@@ -99,7 +99,7 @@ A set $X$ with topology $\mathcal T$ is called an topological space ($X,\mathcal
     Let $\{U_{i}\}$ be the indexed family of subsets of $X$ belongs to $\mathcal{T}$. $\phi$ and $X$ are obviously there. Assume each $\bigcup\limits_i U_i$ is non-empty (trivial for empty case): 
     $$X - \bigcup\limits_i U_i = \bigcap\limits_i(X - U_i)$$
     Since each $U_i$ is in $\mathcal{T}$, $X - U_i$ is finite. and $\bigcap\liminf_i X - U_i$ is contained in every $X - U_i$ hence it is finite.\\ \\
-    To show $\bigcap\limits_i^n X - U_i$ is in $\mathcal{T}$, 
+    To show $\bigcap\limits_i^n U_i$ is in $\mathcal{T}$, 
     $$ X - \bigcap\limits_i^n U_i = \bigcup\limits_i^n (X - U_i) $$
     Rhs is finite union of finite sets hence it is finite.
 \end{proof}
@@ -372,7 +372,7 @@ If $U$ is an open set of $X$ then $\pi_1^{-1}(U) = U \times Y$ which is open is 
 \section{The Subspace topology}
 \begin{defn}
     Let $X$ be a topological space with topology $\cal T$. If $Y$ is a subset of $X$, the collection
-    $$ \cal T_y = \{Y \cap U \mid U \in \cal T\} $$
+    $$ \cal T_Y = \{Y \cap U \mid U \in \cal T_X\} $$
     is a topology on $Y$, called the {\bf subspace topology}. With this topology, $Y$ is called the {\bf subspace} of $X$.
 \end{defn}
 It is easy to check that $\cal T$ is the topology with the fact that 
@@ -631,7 +631,7 @@ The topology $\cal T$ is consists of those subsets $U$ of $A$ such that $p^{-1}(
 \begin{defn}[Quotient space]
     Let $X$ be a topological space, and let $X^*$ be a partition of $X$ into disjoint subsets whose union is $X$. Let $p : X \to X^*$ be the surjective map that carries each point of $X$ to the element of $X^*$ containing it. In the quotient topology induced by $p$, the space $X^*$ is called a {\bf quotient space} of $X$.
 \end{defn}
-A subset $U$ of $X^*$ is a collection of equivalence classes, and the set $p^{-1}(U)$ is the union of the equivalence classes belonging to $U$. Thus, open set of $X^*$ is a collection of equivalence classes whose union is an open set of $X$.
+A subset $U$ of $X^*$ is a collection of equivalence classes, and the set $p^{-1}(U)$ is the union of the elements of $X$ whose equivalence classes belong to $U$. Thus, open set of $X^*$ is a collection of equivalence classes whose union is an open set of $X$.
 
 \begin{thm}
     Let $p : X \to Y$ be a quotient map; let $A$ be a subspace of $X$ that is saturated with respect to $p$; let $q : A \to p(A)$ be the map obtained by restricting $p$.
@@ -669,7 +669,7 @@ A subset $U$ of $X^*$ is a collection of equivalence classes, and the set $p^{-1
     $$
     If $G$ is a topological group then $\kappa$ is continuous.
 \end{defn}
-Conversely, if $\kappa$ is continuous, then the maps $g \mapsto g^{-1} = \kappa(g,e)$ and $(g,h) \mapsto gh = \kappa(\kappa(g,e),h)$ are continous (composition of continuous maps).
+Conversely, if $\kappa$ is continuous, then the maps $g \mapsto g^{-1} = \kappa(g,e)$ and $(g,h) \mapsto gh = \kappa(\kappa(g,e),h)$ are continuous (composition of continuous maps).
 
 \begin{thm}
     Suppose that $G$ is a topological group. For every $a \in G$, the {\it right tranlation map}
@@ -1132,7 +1132,7 @@ TODO
     \noindent $(\impliedby)$ Let $A \nsubseteq C = X - U$. It is closed and $A\subset X$ is closed. $V$ be the open neighbourhood containing $A$ and $X - \overline{V}$ be the open set containing $X - U$ ($\because \overline{V} \subset U$). $(X - \overline{V}) \cap V = \phi$. Hence, $X$ is normal.
 \end{proof}
 \begin{rem}
-    Hausdorff and regular spaces are well behaved with subspaces and products.
+    Hausdorff and regular spaces are well behaved with subspaces and arbitrary products.
 \end{rem}
 \begin{proof}
     TODO
